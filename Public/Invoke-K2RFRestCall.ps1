@@ -27,7 +27,11 @@ function Invoke-K2RFRestCall{
         This will render the .hits return for the https://{k2Server}/api/v2/volumes API endpoint. 
     #>
 
+    # Delcare the serviced API endpoint.
+
     $endpointURI = New-K2RFURI -endpoint $endpoint -k2context $k2context
+
+    # Cleanup the paramter list and construct the URI with the argued parameters. 
 
     if ($parameterList) {
         $parameterList.Remove('Verbose')
@@ -44,6 +48,8 @@ function Invoke-K2RFRestCall{
         }
     }
 
+    # Clean up the final URI.
+
     $endpointURI = $endpointURI.Substring(0,$endpointURI.Length-1)
     $endpointURI = New-URLEncode -URL $endpointURI
 
@@ -53,11 +59,19 @@ function Invoke-K2RFRestCall{
         Write-Verbose "using the following body:" `n$bodyjson
     }
 
+    # decalre the requested context's credential information 
+
+    $restContext = Get-Variable -Scope Global -Name $k2context -ValueOnly
+
+    # Make the call. 
+
     if ($body) {
-        $results = Invoke-RestMethod -Method $method -Uri $endpointURI -Body $body -Credential $Global:k2rfconnection.credentials -SkipCertificateCheck
+        $results = Invoke-RestMethod -Method $method -Uri $endpointURI -Body $body -Credential $restContext.credentials -SkipCertificateCheck
     } else {
-        $results = Invoke-RestMethod -Method $method -Uri $endpointURI -Credential $Global:k2rfconnection.credentials -SkipCertificateCheck
+        $results = Invoke-RestMethod -Method $method -Uri $endpointURI -Credential $restContext.credentials -SkipCertificateCheck
     }
 
+    # Return the results of the call back to the cmdlet.
+    
     return $results
 }

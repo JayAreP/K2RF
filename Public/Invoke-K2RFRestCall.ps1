@@ -71,8 +71,8 @@ function Invoke-K2RFRestCall{
             $results = Invoke-RestMethod -Method $method -Uri $endpointURI -Credential $restContext.credentials -SkipCertificateCheck
         }
     } elseif ($PSVersionTable.PSEdition -eq 'Desktop') {
-        Write-Verbose "Correcting certificate policy"
         if ([System.Net.ServicePointManager]::CertificatePolicy -notlike 'TrustAllCertsPolicy') { 
+            Write-Verbose "Correcting certificate policy"
             Unblock-CertificatePolicy
         }
         if ([Net.ServicePointManager]::SecurityProtocol -notmatch 'Tls12') {

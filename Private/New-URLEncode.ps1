@@ -4,7 +4,8 @@ function New-URLEncode {
         [string] $URL
     )
     $baseurl = 'https://' + $Global:k2rfconnection.K2Endpoint
-    $url = $url.Split($baseurl)[-1].Replace(':','%3A').replace('.','%2E')
+    $url = $url.Replace($baseurl,$null)
+    $url = $url.Replace(':','%3A').replace('.','%2E')
     $url = $baseurl + $url
     return $url
 }

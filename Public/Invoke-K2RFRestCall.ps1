@@ -64,12 +64,27 @@ function Invoke-K2RFRestCall{
     $restContext = Get-Variable -Scope Global -Name $k2context -ValueOnly
 
     # Make the call. 
-
-    if ($body) {
-        $results = Invoke-RestMethod -Method $method -Uri $endpointURI -Body $body -Credential $restContext.credentials -SkipCertificateCheck
-    } else {
-        $results = Invoke-RestMethod -Method $method -Uri $endpointURI -Credential $restContext.credentials -SkipCertificateCheck
+    if ($PSVersionTable.PSEdition -eq 'Core') {
+        if ($body) {
+            $results = Invoke-RestMethod -Method $method -Uri $endpointURI -Body $body -Credential $restContext.credentials -SkipCertificateCheck
+        } else {
+            $results = Invoke-RestMethod -Method $method -Uri $endpointURI -Credential $restContext.credentials -SkipCertificateCheck
+        }
+    } elseif ($PSVersionTable.PSEdition -eq 'Desktop') {
+        Write-Verbose "Correcting certificate policy"
+        if ([System.Net.ServicePointManager]::CertificatePolicy -notlike 'TrustAllCertsPolicy') { 
+            Unblock-CertificatePolicy
+        }
+        if ([Net.ServicePointManager]::SecurityProtocol -notmatch 'Tls12') {
+            [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol + 'Tls12'
+        }
+        if ($body) {
+            $results = Invoke-RestMethod -Method $method -Uri $endpointURI -Body $body -Credential $restContext.credentials 
+        } else {
+            $results = Invoke-RestMethod -Method $method -Uri $endpointURI -Credential $restContext.credentials 
+        }
     }
+
 
     # Return the results of the call back to the cmdlet.
     

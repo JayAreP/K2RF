@@ -1,4 +1,4 @@
-function Invoke-K2RFRestCall{
+function Invoke-K2RFRestCall {
     param(
         [parameter(Mandatory)]
         [string] $endpoint,
@@ -6,7 +6,7 @@ function Invoke-K2RFRestCall{
         [ValidateSet('GET','POST','PATCH','DELETE')]
         [string] $method,
         [parameter()]
-        [string] $body,
+        [array] $body,
         [parameter()]
         [hashtable] $parameterList,
         [parameter()]
@@ -53,10 +53,10 @@ function Invoke-K2RFRestCall{
     $endpointURI = $endpointURI.Substring(0,$endpointURI.Length-1)
     $endpointURI = New-URLEncode -URL $endpointURI
 
-    Write-Verbose "Requesting GET from $endpointURI"
+    Write-Verbose "Requesting $method from $endpointURI"
     if ($body) {
         $bodyjson = $body | ConvertTo-Json -Depth 10
-        Write-Verbose "using the following body:" `n$bodyjson
+        Write-Verbose $bodyjson
     }
 
     # decalre the requested context's credential information 
@@ -66,7 +66,7 @@ function Invoke-K2RFRestCall{
     # Make the call. 
     if ($PSVersionTable.PSEdition -eq 'Core') {
         if ($body) {
-            $results = Invoke-RestMethod -Method $method -Uri $endpointURI -Body $body -Credential $restContext.credentials -SkipCertificateCheck
+            $results = Invoke-RestMethod -Method $method -Uri $endpointURI -Body $bodyjson -Credential $restContext.credentials -SkipCertificateCheck -ContentType 'application/json' 
         } else {
             $results = Invoke-RestMethod -Method $method -Uri $endpointURI -Credential $restContext.credentials -SkipCertificateCheck
         }
@@ -79,7 +79,7 @@ function Invoke-K2RFRestCall{
             [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol + 'Tls12'
         }
         if ($body) {
-            $results = Invoke-RestMethod -Method $method -Uri $endpointURI -Body $body -Credential $restContext.credentials 
+            $results = Invoke-RestMethod -Method $method -Uri $endpointURI -Body $bodyjson -Credential $restContext.credentials -ContentType 'application/json' 
         } else {
             $results = Invoke-RestMethod -Method $method -Uri $endpointURI -Credential $restContext.credentials 
         }

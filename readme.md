@@ -1,4 +1,5 @@
 # Kaminario K2 PowerShell SDK 
+## Preview-only, do not use in production Kaminario deployments. 
 
 ### Installation 
 For now, clone this repo and import the module manually via:

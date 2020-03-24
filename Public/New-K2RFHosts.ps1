@@ -29,7 +29,8 @@ function New-K2RFHosts {
     # start special ops
 
     if ($host_group) {
-        $opt = ConvertTo-HostGroupPrefix -hostID $host_group -nestedObject
+        # $opt = ConvertTo-HostGroupPrefix -hostID $host_group -nestedObject
+        $opt = ConvertTo-K2RFObjectPrefix -ObjectID $host_group -ObjectPath host_groups -nestedObject
         $body | Add-Member -MemberType NoteProperty -Name 'host_group' -Value $opt
     }
 

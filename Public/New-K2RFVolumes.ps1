@@ -43,14 +43,10 @@ function New-K2RFVolumes {
 
     $endpoint = "volumes"
 
-    if ($PSBoundParameters.Keys.Contains('Verbose')) {
-        $results = Invoke-K2RFRestCall -endpoint $endpoint -method POST -body $body -Verbose -k2context $k2context
-    } else {
-        $results = Invoke-K2RFRestCall -endpoint $endpoint -method POST -body $body -k2context $k2context
+    $results = Invoke-K2RFRestCall -endpoint $endpoint -method POST -body $body -k2context $k2context
+
+    if ($results) {
+        $success = Get-K2RFVolumes -name $name
+        return $success
     }
-        # return $results.hits
-        if ($results) {
-            $success = Get-K2RFVolumes -name $name
-            return $success
-        }
 }

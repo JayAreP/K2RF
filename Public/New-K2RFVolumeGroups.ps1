@@ -48,12 +48,8 @@ function New-K2RFVolumeGroups {
 
     $endpoint = "volume_groups"
 
-    if ($PSBoundParameters.Keys.Contains('Verbose')) {
-        $results = Invoke-K2RFRestCall -endpoint $endpoint -method POST -body $body -Verbose -k2context $k2context
-    } else {
-        $results = Invoke-K2RFRestCall -endpoint $endpoint -method POST -body $body -k2context $k2context
-    }
-    # return $results.hits
+    $results = Invoke-K2RFRestCall -endpoint $endpoint -method POST -body $body -k2context $k2context
+
     if ($results) {
         $success = Get-K2RFVolumeGroups -name $name
         return $success

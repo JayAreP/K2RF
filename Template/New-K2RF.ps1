@@ -7,8 +7,8 @@ function CMDLETNAME {
     ## Special Ops
 
     ## Build the body
-    $o = New-Object psobject
-    $o | Add-Member -MemberType NoteProperty -Name name -Value $name
+    $plist = Remove-CommonParams -parameterList $PSBoundParameters
+    $body = New-ObjectFromHash -inputHash $plist
 
     ## Make the call
     $endpoint = ENDPOINTNAME

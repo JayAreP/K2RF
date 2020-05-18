@@ -1,22 +1,21 @@
-function Remove-K2RFTemplate {
+function Remove-SDPHosts {
     param(
         [parameter(ValueFromPipelineByPropertyName)]
         [Alias('id')]
-        [array] $objectid,
+        [string] $objectid,
         [parameter()]
         [string] $k2context = 'k2rfconnection'
     )
 
-    ## Special Ops
     begin {
-        Write-Verbose "Removing..."
-        $endpoint = ENDPOINTNAME
+        $endpoint = "hosts"
     }
 
     process {
-        ## Make the call
+        Write-Verbose "Removing volume with id $objectid"
         $endpointURI = $endpoint + '/' + $objectid
-        $results = Invoke-K2RFRestCall -endpoint $endpointURI -method DELETE -k2context $k2context
+        $results = Invoke-SDPRestCall -endpoint $endpointURI -method DELETE -k2context $k2context
         return $results.hits
     }
 }
+

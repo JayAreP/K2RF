@@ -1,18 +1,14 @@
 function Remove-CommonParams {
     param(
         [parameter(Mandatory)]
-        [array] $PSBP
+        [hashtable] $parameterList
     )
-    $body = @{}
 
-    foreach ($param in $PSBP) {
-
-        # Skip any common parameters (Debug, Verbose, etc)
-        if ([System.Management.Automation.PSCmdlet]::CommonParameters -contains $param.key) {
-            continue
+    if ($parameterList) {
+        foreach ($p in [System.Management.Automation.PSCmdlet]::CommonParameters) {
+            $parameterList.Remove($p)
         }
-
-        $body.add($param.Key, $param.Value)
+        $parameterList.Remove('k2context')
     }
-    return $body
+    return $parameterList
 }

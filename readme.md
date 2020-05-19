@@ -9,7 +9,7 @@ Import-Module ./path/SDP/sdp.psd1
 
 Or, run the provided InstallSDP.ps1 script. 
 
-### Example usage:
+### Example usage: 
 
 This module requires Powershell 4.x or above and was developed on PowerShell Core Preview 7. 
 After importing, you can connect to the Silk Data Platform or Kaminario K2 appliance using a conventional PowerShell credential object

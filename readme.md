@@ -1,5 +1,5 @@
-# Kaminario K2 PowerShell SDK 
-## Preview-only, do not use in production Kaminario deployments. 
+# Silk Data Platform (formerly Kaminario) PowerShell SDK 
+## Preview-only, do not use in production deployments. 
 
 ### Installation 
 For now, clone this repo and import the module manually via:
@@ -12,7 +12,7 @@ Or, run the provided InstallSDP.ps1 script.
 ### Example usage:
 
 This module requires Powershell 4.x or above and was developed on PowerShell Core Preview 7. 
-After importing, you can connect to the Kaminario K2 appliance using a conventional PowerSHell credntial object
+After importing, you can connect to the Silk Data Platform or Kaminario K2 appliance using a conventional PowerShell credential object
 ```powershell
 $creds = get-credential
 Connect-SDP -Server 10.10.47.15 -Credentials $cred

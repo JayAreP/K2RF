@@ -28,7 +28,6 @@ function New-SDPHosts {
     # start special ops
 
     if ($host_group) {
-        # $opt = ConvertTo-HostGroupPrefix -hostID $host_group -nestedObject
         $opt = ConvertTo-SDPObjectPrefix -ObjectID $host_group -ObjectPath host_groups -nestedObject
         $body | Add-Member -MemberType NoteProperty -Name 'host_group' -Value $opt
     }

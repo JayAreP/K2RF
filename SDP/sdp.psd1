@@ -24,7 +24,7 @@ GUID = 'faf1560d-f57b-4344-b3b1-0d9a89bb091b'
 Author = 'J.R. Phillips'
 
 # Company or vendor of this module
-CompanyName = 'Unknown'
+# CompanyName = 'Unknown'
 
 # Copyright statement for this module
 Copyright = '(c) J.R. Phillips. All rights reserved.'
@@ -110,7 +110,7 @@ PrivateData = @{
         # ReleaseNotes = ''
 
         # Prerelease string of this module
-        Prerelease = 'This module is for preview and development purposes ONLY.'
+        Prerelease = 'Experimental - Do NOT use on production evironments!'
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update/save
         # RequireLicenseAcceptance = $false

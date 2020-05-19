@@ -1,5 +1,8 @@
 function Get-SDPVolumeGroup {
     param(
+        [parameter(ValueFromPipelineByPropertyName)]
+        [Alias('volume_group')]
+        [array] $volumeGroupObject,
         [parameter()]
         [Alias("CapacityPolicy")]
         [string] $capacity_policy,
@@ -19,7 +22,7 @@ function Get-SDPVolumeGroup {
         [parameter()]
         [Alias("IsDefault")]
         [bool] $is_default,
-        [parameter()]
+        [parameter(Position=1)]
         [string] $name,
         [parameter()]
         [Alias("ReplicationPeerVolumeGroup")]
@@ -40,12 +43,27 @@ function Get-SDPVolumeGroup {
         [string] $k2context = 'k2rfconnection'
     )
 
-    $endpoint = 'volume_groups'
-    
-    if ($PSBoundParameters.Keys.Contains('Verbose')) {
-        $results = Invoke-SDPRestCall -endpoint $endpoint -method GET -parameterList $PSBoundParameters -Verbose -k2context $k2context
-    } else {
-        $results = Invoke-SDPRestCall -endpoint $endpoint -method GET -parameterList $PSBoundParameters -k2context $k2context
+    begin {
+        $endpoint = 'volume_groups'
     }
-    return $results
+    
+    process {
+
+        # special ops
+        $PSBoundParameters | ConvertTo-Json -depth 10 | write-verbose
+        if ($volumeGroupObject) {
+            $id = ConvertFrom-SDPObjectPrefix -Object $volumeGroupObject -getId
+            $PSBoundParameters['id'] = $id
+            $PSBoundParameters.remove('volumeGroupObject')
+        }
+        
+        # usual routine
+        if ($PSBoundParameters.Keys.Contains('Verbose')) {
+            $results = Invoke-SDPRestCall -endpoint $endpoint -method GET -parameterList $PSBoundParameters -Verbose -k2context $k2context
+        } else {
+            $results = Invoke-SDPRestCall -endpoint $endpoint -method GET -parameterList $PSBoundParameters -k2context $k2context
+        }
+        return $results
+    }
+    
 }

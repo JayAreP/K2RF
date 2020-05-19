@@ -72,7 +72,6 @@ function Get-SDPVolume {
 
         # OjectId fix
 
-
         if ($PSBoundParameters.Keys.Contains('Verbose')) {
             $results = Invoke-SDPRestCall -endpoint $endpoint -method GET -parameterList $PSBoundParameters -Verbose -k2context $k2context
         } else {

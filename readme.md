@@ -1,5 +1,5 @@
 # Silk Data Platform (formerly Kaminario) PowerShell SDK 
-## Preview-only, do not use in production deployments. 
+## Experimental, do not use in production deployments!
 
 ### Installation 
 For now, clone this repo and import the module manually via:

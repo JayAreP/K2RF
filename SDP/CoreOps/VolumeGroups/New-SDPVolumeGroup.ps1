@@ -1,4 +1,4 @@
-function New-SDPVolumeGroups {
+function New-SDPVolumeGroup {
     param(
         [parameter(Mandatory)]
         [string] $name,

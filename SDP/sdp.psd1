@@ -12,7 +12,7 @@
 RootModule = 'sdp.psm1'
 
 # Version number of this module.
-ModuleVersion = '2.0'
+ModuleVersion = '0.8'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -30,10 +30,10 @@ CompanyName = 'Unknown'
 Copyright = '(c) J.R. Phillips. All rights reserved.'
 
 # Description of the functionality provided by this module
-# Description = ''
+Description = 'Powershell SDK for Kaminario / Silk cloud data platform.'
 
 # Minimum version of the PowerShell engine required by this module
-# PowerShellVersion = ''
+PowerShellVersion = '4.0'
 
 # Name of the PowerShell host required by this module
 # PowerShellHostName = ''
@@ -69,10 +69,7 @@ Copyright = '(c) J.R. Phillips. All rights reserved.'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = @(
-    'Get-SDPVolumes',
-    'Get-SDPVOlumeGroups'
-)
+FunctionsToExport = '*'
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()
@@ -98,13 +95,13 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        # Tags = @()
+        Tags = @('Kaminario', 'Silk')
 
         # A URL to the license for this module.
         # LicenseUri = ''
 
         # A URL to the main website for this project.
-        # ProjectUri = ''
+        ProjectUri = 'https://github.com/JayAreP/K2RF'
 
         # A URL to an icon representing this module.
         # IconUri = ''
@@ -113,7 +110,7 @@ PrivateData = @{
         # ReleaseNotes = ''
 
         # Prerelease string of this module
-        # Prerelease = ''
+        Prerelease = 'This module is for preview and development purposes ONLY.'
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update/save
         # RequireLicenseAcceptance = $false

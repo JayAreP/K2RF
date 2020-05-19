@@ -1,4 +1,4 @@
-function Get-SDPVolumeGroups {
+function Get-SDPVolumeGroup {
     param(
         [parameter()]
         [Alias("CapacityPolicy")]

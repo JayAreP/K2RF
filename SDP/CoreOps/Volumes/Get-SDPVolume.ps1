@@ -1,4 +1,4 @@
-function Get-SDPVolumes {
+function Get-SDPVolume {
     param(
         [parameter()]
         [Alias("CurrentReplicationStats")]

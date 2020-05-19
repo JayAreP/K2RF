@@ -1,4 +1,4 @@
-function New-SDPVolumes {
+function New-SDPVolume {
     param(
         [parameter(Mandatory)]
         [string] $name,
@@ -28,13 +28,13 @@ function New-SDPVolumes {
         $PSBoundParameters | ConvertTo-Json -Depth 10 | write-verbose
         if ($volumeGroupId) {
             Write-Verbose "Working with Volume Group id $volumeGroupId"
-            $vgstats = Get-SDPVolumeGroups -id $volumeGroupId
+            $vgstats = Get-SDPVolumeGroup -id $volumeGroupId
             if (!$vgstats) {
                 Return "No volumegroup with ID $volumeGroupId exists."
             } 
         } elseif ($VolumeGroupName) {
             Write-Verbose "Working with Volume Group name $VolumeGroupName"
-            $vgstats = Get-SDPVolumeGroups -name $VolumeGroupName
+            $vgstats = Get-SDPVolumeGroup -name $VolumeGroupName
             if (!$vgstats) {
                 Return "No volumegroup named $VolumeGroupName exists."
             } 

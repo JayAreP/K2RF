@@ -1,4 +1,4 @@
-function Set-SDPVolumes {
+function Set-SDPVolume {
     param(
         [parameter(ValueFromPipelineByPropertyName, Mandatory)]
         [Alias('id')]
@@ -30,7 +30,7 @@ function Set-SDPVolumes {
 
         if ($VolumeGroupName) {
             Write-Verbose "Working with Volume Group name $VolumeGroupName"
-            $vgstats = Get-SDPVolumeGroups -name $VolumeGroupName
+            $vgstats = Get-SDPVolumeGroup -name $VolumeGroupName
             if (!$vgstats) {
                 Return "No volumegroup named $VolumeGroupName exists."
             } else {

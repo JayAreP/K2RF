@@ -1,4 +1,4 @@
-function Remove-SDPVolumeGroups {
+function Remove-SDPVolumeGroup {
     param(
         [parameter(ValueFromPipelineByPropertyName)]
         [Alias('id')]
@@ -19,7 +19,7 @@ function Remove-SDPVolumeGroups {
             $volgrpname = Get-SDPVolumeGroups -name $name
             if (!$volgrpname) {
                 return "No volume with name $name exists."
-            } elseif (($volgrpname | measure).count -gt 1) {
+            } elseif (($volgrpname | measure-object).count -gt 1) {
                 return "Too many replies with $name"
             } else {
                 $objectid = $volgrpname.id

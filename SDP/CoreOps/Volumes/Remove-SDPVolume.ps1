@@ -1,4 +1,4 @@
-function Remove-SDPVolumes {
+function Remove-SDPVolume {
     param(
         [parameter(ValueFromPipelineByPropertyName)]
         [Alias('id')]
@@ -15,7 +15,7 @@ function Remove-SDPVolumes {
 
     process {
         if ($name) {
-            $volname = Get-SDPVolumes -name $name
+            $volname = Get-SDPVolume -name $name
             if (!$volname) {
                 return "No volume with name $name exists."
             } elseif (($volname | measure-object).count -gt 1) {

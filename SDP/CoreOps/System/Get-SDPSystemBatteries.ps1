@@ -10,7 +10,6 @@ function Get-SDPSystemBatteries {
         [Alias("ContainedIn")]
         [string] $contained_in,
         [parameter()]
-        [Alias("ContainedIn")]
         [int] $id,
         [parameter()]
         [Alias("IsExpansionInProgress")]
@@ -22,7 +21,6 @@ function Get-SDPSystemBatteries {
         [Alias("IsPhasedOut")]
         [bool] $is_phased_out,
         [parameter()]
-        [Alias("ContainedIn")]
         [string] $name,
         [parameter()]
         [Alias("NduState")]

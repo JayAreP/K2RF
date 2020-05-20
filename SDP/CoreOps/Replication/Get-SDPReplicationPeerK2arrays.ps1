@@ -40,7 +40,6 @@ function Get-SDPReplicationPeerK2arrays {
         [Alias("CapacityTotal")]
         [string] $capacity_total,
         [parameter()]
-        [Alias("ContainedIn")]
         [int] $id,
         [parameter()]
         [Alias("LogicalBandwidthLimit")]
@@ -52,13 +51,11 @@ function Get-SDPReplicationPeerK2arrays {
         [Alias("MgmtHost")]
         [string] $mgmt_host,
         [parameter()]
-        [Alias("ContainedIn")]
         [string] $name,
         [parameter()]
         [Alias("SystemId")]
         [int] $system_id,
         [parameter()]
-        [Alias("ContainedIn")]
         [string] $username,
         [parameter()]
         [string] $k2context = "k2rfconnection"

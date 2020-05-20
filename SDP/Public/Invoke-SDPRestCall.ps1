@@ -39,7 +39,7 @@ function Invoke-SDPRestCall {
             $parameterList.Remove($p)
         }
         $parameterList.Remove('k2context')
-        Write-Verbose "-- Using following paramters --"
+        Write-Verbose "-- REST Using following paramters --"
         $parameterList | ConvertTo-Json -Depth 10 | write-verbose
     }
     
@@ -51,7 +51,7 @@ function Invoke-SDPRestCall {
     Write-Verbose "Requesting $method from $endpointURI"
     if ($body) {
         $bodyjson = $body | ConvertTo-Json -Depth 10
-        Write-Verbose "-- Using following JSON body --"
+        Write-Verbose "-- REST Using following JSON body --"
         Write-Verbose $bodyjson
     }
 

@@ -21,7 +21,11 @@ function Build-MenuFromArray {
     Write-Host `n`n
 }
 
-$PSPaths = $env:PSModulePath.Split(':')
+if ($PSVersionTable.PSEdition -eq 'Desktop') {
+    $PSPaths = $env:PSModulePath.Split(';')
+} elseif ($PSVersionTable.PSEdition -eq 'Core') {
+    $PSPaths = $env:PSModulePath.Split(':')
+}
 
 $installDirectory = Build-MenuFromArray -array $PSPaths -message "Select Install location"
 

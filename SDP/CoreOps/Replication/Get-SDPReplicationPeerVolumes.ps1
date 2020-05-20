@@ -1,13 +1,11 @@
 function Get-SDPReplicationPeerVolumes {
     param(
         [parameter()]
-        [Alias("ContainedIn")]
         [int] $id,
         [parameter()]
         [Alias("LocalVolume")]
         [string] $local_volume,
         [parameter()]
-        [Alias("ContainedIn")]
         [string] $name,
         [parameter()]
         [Alias("RemoteVolumeId")]

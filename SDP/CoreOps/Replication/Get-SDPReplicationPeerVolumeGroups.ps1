@@ -4,10 +4,8 @@ function Get-SDPReplicationPeerVolumeGroups {
         [Alias("CapacityState")]
         [string] $capacity_state,
         [parameter()]
-        [Alias("ContainedIn")]
         [string] $fullname,
         [parameter()]
-        [Alias("ContainedIn")]
         [int] $id,
         [parameter()]
         [Alias("LocalVolumeGroup")]
@@ -16,7 +14,6 @@ function Get-SDPReplicationPeerVolumeGroups {
         [Alias("LogicalCapacity")]
         [int] $logical_capacity,
         [parameter()]
-        [Alias("ContainedIn")]
         [string] $name,
         [parameter()]
         [Alias("RemoteVolumeGroupId")]

@@ -19,7 +19,6 @@ function Get-SDPReplicationSessions {
         [Alias("ExternalRetentionPolicy")]
         [string] $external_retention_policy,
         [parameter()]
-        [Alias("ContainedIn")]
         [int] $id,
         [parameter()]
         [Alias("LatestReplicatedSnapshot")]
@@ -28,13 +27,11 @@ function Get-SDPReplicationSessions {
         [Alias("LocalVolumeGroup")]
         [string] $local_volume_group,
         [parameter()]
-        [Alias("ContainedIn")]
         [string] $name,
         [parameter()]
         [Alias("NextSnapshot")]
         [string] $next_snapshot,
         [parameter()]
-        [Alias("ContainedIn")]
         [bool] $primary,
         [parameter()]
         [Alias("RemoteReplicationSessionId")]
@@ -58,13 +55,10 @@ function Get-SDPReplicationSessions {
         [Alias("RetentionPolicy")]
         [string] $retention_policy,
         [parameter()]
-        [Alias("ContainedIn")]
         [int] $rpo,
         [parameter()]
-        [Alias("ContainedIn")]
         [string] $state,
         [parameter()]
-        [Alias("ContainedIn")]
         [bool] $stopped,
         [parameter()]
         [Alias("SuspendReason")]

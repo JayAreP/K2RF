@@ -1,7 +1,6 @@
 function Get-SDPReplicationPeerWanPorts {
     param(
         [parameter()]
-        [Alias("ContainedIn")]
         [int] $id,
         [parameter()]
         [Alias("RemoteWanPortIpAddress")]

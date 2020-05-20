@@ -4,7 +4,6 @@ function Get-SDPSystemBmcs {
         [Alias("ContainedIn")]
         [string] $contained_in,
         [parameter()]
-        [Alias("ContainedIn")]
         [int] $id,
         [parameter()]
         [Alias("IsExpansionInProgress")]
@@ -16,7 +15,6 @@ function Get-SDPSystemBmcs {
         [Alias("IsPhasedOut")]
         [bool] $is_phased_out,
         [parameter()]
-        [Alias("ContainedIn")]
         [string] $name,
         [parameter()]
         [Alias("NduState")]
@@ -25,12 +23,17 @@ function Get-SDPSystemBmcs {
         [string] $k2context = "k2rfconnection"
     )
 
-    $endpoint = "system/bmcs"
-
-    if ($PSBoundParameters.Keys.Contains('Verbose')) {
-        $results = Invoke-SDPRestCall -endpoint $endpoint -method GET -parameterList $PSBoundParameters -Verbose -k2context $k2context
-    } else {
-        $results = Invoke-SDPRestCall -endpoint $endpoint -method GET -parameterList $PSBoundParameters -k2context $k2context
+    begin {
+        $endpoint = "system/bmcs"
     }
-    return $results
+    
+    Process {
+        if ($PSBoundParameters.Keys.Contains('Verbose')) {
+            $results = Invoke-SDPRestCall -endpoint $endpoint -method GET -parameterList $PSBoundParameters -Verbose -k2context $k2context
+        } else {
+            $results = Invoke-SDPRestCall -endpoint $endpoint -method GET -parameterList $PSBoundParameters -k2context $k2context
+        }
+        return $results
+    }
+
 }

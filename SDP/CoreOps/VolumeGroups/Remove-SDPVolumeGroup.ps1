@@ -16,7 +16,7 @@ function Remove-SDPVolumeGroup {
 
     process {
         if ($name) {
-            $volgrpname = Get-SDPVolumeGroups -name $name
+            $volgrpname = Get-SDPVolumeGroup -name $name
             if (!$volgrpname) {
                 return "No volume with name $name exists."
             } elseif (($volgrpname | measure-object).count -gt 1) {

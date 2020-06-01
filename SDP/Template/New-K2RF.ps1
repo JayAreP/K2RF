@@ -4,18 +4,27 @@ function CMDLETNAME {
         [string] $k2context = 'k2rfconnection'
     )
 
-    ## Special Ops
-
-    ## Build the body
-    $plist = Remove-CommonParams -parameterList $PSBoundParameters
-    $body = New-ObjectFromHash -inputHash $plist
-
-    ## Make the call
-    $endpoint = ENDPOINTNAME
-    $results = Invoke-K2RFRestCall -endpoint $endpoint -method POST -body $body -k2context $k2context 
-
-    if ($results) {
-        $success = Get-CMDLETNAME -name $name
-        return $success
+    begin {
+        $endpoint = ENDPOINTNAME
     }
+
+    process{
+        ## Special Ops
+
+        $o = New-Object psobject
+        if ($name) {
+            $o | Add-Member -MemberType NoteProperty -Name "name" -Value $name
+        }
+        if ($size) {
+            $o | Add-Member -MemberType NoteProperty -Name "size" -Value $size
+        }
+
+        $body = $o
+
+        ## Make the call
+        $results = Invoke-SDPRestCall -endpoint $endpoint -method POST -body $body -k2context $k2context 
+        return $results
+    }
+    
+    
 }

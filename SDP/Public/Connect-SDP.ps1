@@ -29,7 +29,7 @@ function Connect-SDP {
     $o = New-Object psobject
     $o | Add-Member -MemberType NoteProperty -Name 'credentials' -Value $credentials
     $o | Add-Member -MemberType NoteProperty -Name 'K2Endpoint' -Value $server
-    $o | Add-Member -MemberType NoteProperty -Name 'K2header' -Value $K2header
+    # $o | Add-Member -MemberType NoteProperty -Name 'K2header' -Value $K2header
 
     Set-Variable -Name $k2context -Value $o -Scope Global
     # return $Global:k2rfconnection

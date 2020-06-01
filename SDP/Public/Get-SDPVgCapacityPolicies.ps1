@@ -29,12 +29,17 @@ function Get-SDPVgCapacityPolicies {
         [string] $k2context = "k2rfconnection"
     )
 
-    $endpoint = "vg_capacity_policies"
-
-    if ($PSBoundParameters.Keys.Contains('Verbose')) {
-        $results = Invoke-SDPRestCall -endpoint $endpoint -method GET -parameterList $PSBoundParameters -Verbose -k2context $k2context
-    } else {
-        $results = Invoke-SDPRestCall -endpoint $endpoint -method GET -parameterList $PSBoundParameters -k2context $k2context
+    begin {
+        $endpoint = "vg_capacity_policies"
     }
-    return $results
+    
+    process {
+        if ($PSBoundParameters.Keys.Contains('Verbose')) {
+            $results = Invoke-SDPRestCall -endpoint $endpoint -method GET -parameterList $PSBoundParameters -Verbose -k2context $k2context
+        } else {
+            $results = Invoke-SDPRestCall -endpoint $endpoint -method GET -parameterList $PSBoundParameters -k2context $k2context
+        }
+        return $results
+    }
+
 }

@@ -39,14 +39,14 @@ function Invoke-SDPRestCall {
             $parameterList.Remove($p)
         }
         $parameterList.Remove('k2context')
-        Write-Verbose "-- REST Using following paramters --"
+        Write-Verbose "-- REST Using following parameters --"
         $parameterList | ConvertTo-Json -Depth 10 | write-verbose
     }
     
     # Clean up the final URI.
 
     $endpointURI = $endpointURI.Substring(0,$endpointURI.Length-1)
-    $endpointURI = New-URLEncode -URL $endpointURI
+    $endpointURI = New-URLEncode -URL $endpointURI -k2context $k2context
 
     Write-Verbose "Requesting $method from $endpointURI"
     if ($body) {

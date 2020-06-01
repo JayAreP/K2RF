@@ -50,9 +50,9 @@ function New-SDPVolume {
         [string]$size = ($sizeInGB * 1024 * 1024)
         Write-Verbose "$sizeInGB GB converted to $size"
         $o = New-Object psobject
-        $o | Add-Member -MemberType NoteProperty -Name name -Value $name
-        $o | Add-Member -MemberType NoteProperty -Name size -Value $size
-        $o | Add-Member -MemberType NoteProperty -Name volume_group -Value $vgpath
+        $o | Add-Member -MemberType NoteProperty -Name "name" -Value $name
+        $o | Add-Member -MemberType NoteProperty -Name "size" -Value $size
+        $o | Add-Member -MemberType NoteProperty -Name "volume_group" -Value $vgpath
         if ($VMWare) {
             $o | Add-Member -MemberType NoteProperty -Name vmware_support -Value $true
         }

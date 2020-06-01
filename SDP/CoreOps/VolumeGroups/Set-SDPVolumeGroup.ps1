@@ -1,5 +1,8 @@
-function New-SDPVolumeGroup {
+function Set-SDPVolumeGroup {
     param(
+        [parameter(ValueFromPipelineByPropertyName)]
+        [Alias('id')]
+        [array] $objectid,
         [parameter(Mandatory)]
         [string] $name,
         [parameter()]
@@ -17,8 +20,8 @@ function New-SDPVolumeGroup {
     begin {
         $endpoint = "volume_groups"
     }
-    
-    Process {
+
+    process {
         ## Special Ops
         if ($quotaInGB) {
             [string]$size = ($quotaInGB * 1024 * 1024)
@@ -33,7 +36,8 @@ function New-SDPVolumeGroup {
         ## Build the object
         $o = New-Object psobject
         $o | Add-Member -MemberType NoteProperty -Name name -Value $name
-        if ($quota) {
+        if 
+        ($quotaInGB) {
             $o | Add-Member -MemberType NoteProperty -Name quota -Value $size
         } else {
             $o | Add-Member -MemberType NoteProperty -Name quota -Value 0
@@ -48,15 +52,18 @@ function New-SDPVolumeGroup {
         if ($enableDeDuplication) {
             $o | Add-Member -MemberType NoteProperty -Name is_dedupe -Value $true
         }
+
+        $body = $o 
+
+        $endpointURI = $endpoint + '/' + $objectid
         
-        $body = $o
-
-        $results = Invoke-SDPRestCall -endpoint $endpoint -method POST -body $body -k2context $k2context
-
-        if ($results) {
-            $success = Get-SDPVolumeGroups -name $name
-            return $success
+        if ($PSBoundParameters.Keys.Contains('Verbose')) {
+            $results = Invoke-SDPRestCall -endpoint $endpointURI -method PATCH -body $body -k2context $k2context -Verbose 
+        } else {
+            $results = Invoke-SDPRestCall -endpoint $endpointURI -method PATCH -body $body -k2context $k2context 
         }
+        return $results
+
+
     }
-    
 }

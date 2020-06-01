@@ -31,7 +31,7 @@ function Get-SDPVolume {
         [parameter()]
         [Alias("MarkedForDeletion")]
         [bool] $marked_for_deletion,
-        [parameter()]
+        [parameter(Position=1)]
         [string] $name,
         [parameter()]
         [Alias("NodeId")]

@@ -66,11 +66,7 @@ function Set-SDPVolume {
         $body = $o
 
         $endpointURI = $endpoint + '/' + $objectid
-        if ($PSBoundParameters.Keys.Contains('Verbose')) {
-            $results = Invoke-SDPRestCall -endpoint $endpointURI -method PATCH -body $body -k2context $k2context -Verbose 
-        } else {
-            $results = Invoke-SDPRestCall -endpoint $endpointURI -method PATCH -body $body -k2context $k2context 
-        }
+        $results = Invoke-SDPRestCall -endpoint $endpointURI -method PATCH -body $body -k2context $k2context 
         return $results
     }
 

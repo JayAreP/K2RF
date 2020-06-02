@@ -14,6 +14,9 @@ function Remove-SDPVolume {
     }
 
     process {
+
+        # Special Ops
+
         if ($name) {
             $volname = Get-SDPVolume -name $name
             if (!$volname) {
@@ -24,13 +27,13 @@ function Remove-SDPVolume {
                 $objectid = $volname.id
             }
         }
+
+        # Call
+        
         $endpointURI = $endpoint + '/' + $objectid
         Write-Verbose "Removing volume with id $objectid"
-        if ($PSBoundParameters.Keys.Contains('Verbose')) {
-            $results = Invoke-SDPRestCall -endpoint $endpointURI -method DELETE -k2context $k2context -Verbose
-        } else {
-            $results = Invoke-SDPRestCall -endpoint $endpointURI -method DELETE -k2context $k2context
-        }
-        return $results.hits
+        $results = Invoke-SDPRestCall -endpoint $endpointURI -method DELETE -k2context $k2context
+
+        return $results
     }
 }

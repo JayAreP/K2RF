@@ -22,6 +22,9 @@ function Set-SDPVolume {
     }
 
     process {
+
+        # Special Ops
+
         if ($sizeInGB) {
             [string]$size = ($sizeInGB * 1024 * 1024)
             Write-Verbose "$sizeInGB GB converted to $size"
@@ -37,6 +40,8 @@ function Set-SDPVolume {
                 $vgpath = ConvertTo-SDPObjectPrefix -ObjectPath volume_groups -ObjectID $vgstats.id -nestedObject
             }
         }
+        
+        # Build the Object
         
         $o = New-Object psobject
         if ($name) {
@@ -64,6 +69,8 @@ function Set-SDPVolume {
         }
 
         $body = $o
+
+        # Call
 
         $endpointURI = $endpoint + '/' + $objectid
         $results = Invoke-SDPRestCall -endpoint $endpointURI -method PATCH -body $body -k2context $k2context 

@@ -24,8 +24,9 @@ function New-SDPVolume {
     }
 
     process {
-        Write-Verbose "-- Using following paramters --"
-        $PSBoundParameters | ConvertTo-Json -Depth 10 | write-verbose
+
+        # Special Ops
+
         if ($volumeGroupId) {
             Write-Verbose "Working with Volume Group id $volumeGroupId"
             $vgstats = Get-SDPVolumeGroup -id $volumeGroupId
@@ -46,7 +47,9 @@ function New-SDPVolume {
         } catch {
             return "No volume_group discovered"
         }
+
         ## Build the object
+
         [string]$size = ($sizeInGB * 1024 * 1024)
         Write-Verbose "$sizeInGB GB converted to $size"
         $o = New-Object psobject
@@ -65,9 +68,10 @@ function New-SDPVolume {
         
         $body = $o
 
+        # Call 
+        
         $results = Invoke-SDPRestCall -endpoint $endpoint -method POST -body $body -k2context $k2context
 
         return $results
-        
     }
 }

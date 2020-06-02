@@ -36,21 +36,21 @@ function Get-SDPEvents {
         .LINK
         https://www.github.com/JayAreP/K2RF/
     #>
-
-    $endpoint = 'events'
-
-    # function specific operations
-
-    if ($timestamp) {
-        $cdate = Convert-SDPTimeStamp -timestamp $timestamp
-        $PSBoundParameters.remove('timestamp') | Out-Null
-        $PSBoundParameters.timestamp = $cdate
+    begin {
+        $endpoint = 'events'
     }
     
-    if ($PSBoundParameters.Keys.Contains('Verbose')) {
-        $results = Invoke-SDPRestCall -endpoint $endpoint -method GET -parameterList $PSBoundParameters -Verbose -k2context $k2context
-    } else {
+
+    # function specific operations
+    process {
+        if ($timestamp) {
+            $cdate = Convert-SDPTimeStamp -timestamp $timestamp
+            $PSBoundParameters.remove('timestamp') | Out-Null
+            $PSBoundParameters.timestamp = $cdate
+        }
+        
         $results = Invoke-SDPRestCall -endpoint $endpoint -method GET -parameterList $PSBoundParameters -k2context $k2context
+        return $results
     }
-    return $results
 }
+

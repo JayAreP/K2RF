@@ -13,13 +13,27 @@ function New-SDPVolumeGroup {
         [parameter()]
         [string] $k2context = 'k2rfconnection'
     )
+    <#
+        .SYNOPSIS
 
+        .EXAMPLE 
+
+        .DESCRIPTION
+
+        .NOTES
+        Authored by J.R. Phillips (GitHub: JayAreP)
+
+        .LINK
+        https://www.github.com/JayAreP/K2RF/
+
+    #>
     begin {
         $endpoint = "volume_groups"
     }
     
     Process {
         ## Special Ops
+
         if ($quotaInGB) {
             [string]$size = ($quotaInGB * 1024 * 1024)
         }
@@ -31,6 +45,7 @@ function New-SDPVolumeGroup {
 
 
         ## Build the object
+
         $o = New-Object psobject
         $o | Add-Member -MemberType NoteProperty -Name name -Value $name
         if ($quota) {
@@ -38,7 +53,6 @@ function New-SDPVolumeGroup {
         } else {
             $o | Add-Member -MemberType NoteProperty -Name quota -Value 0
         }
-        
         if ($Description) {
             $o | Add-Member -MemberType NoteProperty -Name description -Value $Description
         }
@@ -52,11 +66,7 @@ function New-SDPVolumeGroup {
         $body = $o
 
         $results = Invoke-SDPRestCall -endpoint $endpoint -method POST -body $body -k2context $k2context
-
-        if ($results) {
-            $success = Get-SDPVolumeGroups -name $name
-            return $success
-        }
+        return $results
     }
     
 }

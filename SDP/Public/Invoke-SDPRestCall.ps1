@@ -26,6 +26,12 @@ function Invoke-SDPRestCall {
         .EXAMPLE
         Invoke-SDPRestCall -endpoint volume -method PATCH -body $body -k2context TestDev
         This will render the .hits return for the https://{k2Server}/api/v2/volumes API endpoint. 
+                
+        .NOTES
+        Authored by J.R. Phillips (GitHub: JayAreP)
+
+        .LINK
+        https://www.github.com/JayAreP/K2RF/
     #>
 
     # Delcare the serviced API endpoint.

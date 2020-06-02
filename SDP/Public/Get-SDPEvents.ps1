@@ -29,6 +29,12 @@ function Get-SDPEvents {
         Get-SDPEvents -EventId 28
 
         This will return all DELETE_VOLUME operations and their corresponding event information. 
+                
+        .NOTES
+        Authored by J.R. Phillips (GitHub: JayAreP)
+
+        .LINK
+        https://www.github.com/JayAreP/K2RF/
     #>
 
     $endpoint = 'events'

@@ -21,10 +21,16 @@ function Connect-SDP {
         
         This connects ad-hoc to a Kaminario appliace using a conventional powershell credential object under a specific context,
         for later issuing commands to a specific K2 appliance  (Get-SDPVolumeGroup -k2context TestDev)
+                
+        .NOTES
+        Authored by J.R. Phillips (GitHub: JayAreP)
+
+        .LINK
+        https://www.github.com/JayAreP/K2RF/
     
     #>
 
-    $K2header = New-SDPAPIHeader -Credential $credentials
+    # $K2header = New-SDPAPIHeader -Credential $credentials
 
     $o = New-Object psobject
     $o | Add-Member -MemberType NoteProperty -Name 'credentials' -Value $credentials

@@ -8,13 +8,28 @@ function Remove-SDPVolumeGroup {
         [parameter()]
         [string] $k2context = 'k2rfconnection'
     )
+    <#
+        .SYNOPSIS
 
-    ## Special Ops
+        .EXAMPLE 
+
+        .DESCRIPTION
+
+        .NOTES
+        Authored by J.R. Phillips (GitHub: JayAreP)
+
+        .LINK
+        https://www.github.com/JayAreP/K2RF/
+
+    #>
+    
     begin {
         $endpoint = "volume_groups"
     }
 
     process {
+        # Special Ops
+
         if ($name) {
             $volgrpname = Get-SDPVolumeGroup -name $name
             if (!$volgrpname) {
@@ -25,14 +40,12 @@ function Remove-SDPVolumeGroup {
                 $objectid = $volgrpname.id
             }
         }
-        Write-Verbose "Removing... $objectid"
+
         ## Make the call
+
         $endpointURI = $endpoint + '/' + $objectid
-        if ($PSBoundParameters.Keys.Contains('Verbose')) {
-            $results = Invoke-SDPRestCall -endpoint $endpointURI -method DELETE -k2context $k2context -verbose
-        } else {
-            $results = Invoke-SDPRestCall -endpoint $endpointURI -method DELETE -k2context $k2context
-        }
+
+        $results = Invoke-SDPRestCall -endpoint $endpointURI -method DELETE -k2context $k2context
         return $results
     }
 }

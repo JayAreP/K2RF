@@ -16,13 +16,27 @@ function Set-SDPVolumeGroup {
         [parameter()]
         [string] $k2context = 'k2rfconnection'
     )
+    <#
+        .SYNOPSIS
 
+        .EXAMPLE 
+
+        .DESCRIPTION
+
+        .NOTES
+        Authored by J.R. Phillips (GitHub: JayAreP)
+
+        .LINK
+        https://www.github.com/JayAreP/K2RF/
+
+    #>
     begin {
         $endpoint = "volume_groups"
     }
 
     process {
-        ## Special Ops
+        # Special Ops
+
         if ($quotaInGB) {
             [string]$size = ($quotaInGB * 1024 * 1024)
         }
@@ -33,7 +47,8 @@ function Set-SDPVolumeGroup {
         }
 
 
-        ## Build the object
+        # Build the object
+
         $o = New-Object psobject
         $o | Add-Member -MemberType NoteProperty -Name name -Value $name
         if 
@@ -57,13 +72,7 @@ function Set-SDPVolumeGroup {
 
         $endpointURI = $endpoint + '/' + $objectid
         
-        if ($PSBoundParameters.Keys.Contains('Verbose')) {
-            $results = Invoke-SDPRestCall -endpoint $endpointURI -method PATCH -body $body -k2context $k2context -Verbose 
-        } else {
-            $results = Invoke-SDPRestCall -endpoint $endpointURI -method PATCH -body $body -k2context $k2context 
-        }
+        $results = Invoke-SDPRestCall -endpoint $endpointURI -method PATCH -body $body -k2context $k2context 
         return $results
-
-
     }
 }

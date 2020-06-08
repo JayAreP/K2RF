@@ -51,7 +51,8 @@ if (!(Get-Item $fullfolder -ErrorAction SilentlyContinue)) {
     New-Item $fullfolder -ItemType directory
 }
 
-Copy-Item ./SDP/* -Destination $fullfolder
+Copy-Item ./SDP/* -Destination $fullfolder -Recurse
+Get-ChildItem $fullfolder -Recurse | Unblock-File
 
 Import-Module sdp
 

@@ -5,6 +5,7 @@ $Private = @( Get-ChildItem -Path $PSScriptRoot\Private\*.ps1 -ErrorAction Silen
 
 $allpublic = @($Public + $CoreOps)
 
+$num = 0
 Foreach($import in @($allpublic + $Private))
 {
     Try
@@ -15,6 +16,9 @@ Foreach($import in @($allpublic + $Private))
     {
         Write-Error -Message "Failed to import function $($import.fullname): $_"
     }
+    $num++
 }
 
-Export-ModuleMember -Function $allpublic.Basename -alias * -Verbose
+Export-ModuleMember -Function $allpublic.Basename -alias * 
+
+Write-Host "--- Loaded $num functions ---"

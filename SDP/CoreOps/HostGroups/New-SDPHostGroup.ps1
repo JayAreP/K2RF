@@ -13,10 +13,13 @@ function New-SDPHostGroup {
     )
     <#
         .SYNOPSIS
+        Use this function to create a new Host Group for Silk SDP
 
         .EXAMPLE 
+        New-SDPHostGroup -name HostGroup01 -description "Host Group for all Series 1 hosts"
 
         .DESCRIPTION
+        This function allows for the creation of a single Host Group for Silk SDP.
 
         .NOTES
         Authored by J.R. Phillips (GitHub: JayAreP)

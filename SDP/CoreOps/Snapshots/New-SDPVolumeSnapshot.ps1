@@ -44,6 +44,4 @@ function New-SDPVolumeSnapshot {
         $results = Invoke-SDPRestCall -endpoint $endpoint -method POST -body $body -k2context $k2context 
         return $results
     }
-    
-    
 }

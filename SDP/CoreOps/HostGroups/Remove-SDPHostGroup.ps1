@@ -10,10 +10,16 @@ function Remove-SDPHostGroup {
     )
     <#
         .SYNOPSIS
+        Removes any existing Host Group. 
 
         .EXAMPLE 
+        Remove-SDPHostGroup -name HostGroup01
+
+        .EXAMPLE 
+        Get-SDPHostGroup | where {$_.name -like "LinuxHosts*"} | Remove-SDPHostGroup 
 
         .DESCRIPTION
+        Use this function to remove any existing Host Group. This command accepts piped input from a Get-SDPHostGroup query. 
 
         .NOTES
         Authored by J.R. Phillips (GitHub: JayAreP)

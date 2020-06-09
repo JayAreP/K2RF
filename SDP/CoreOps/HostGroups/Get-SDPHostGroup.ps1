@@ -9,10 +9,13 @@ function Get-SDPHostGroup {
     )
     <#
         .SYNOPSIS
+        Use this function to query for Host Groups.
 
         .EXAMPLE 
+        Get-SDPHostGroup -name HostGroup01
 
         .DESCRIPTION
+        This function allows for the query for any host group defined on the desired SDP.
 
         .NOTES
         Authored by J.R. Phillips (GitHub: JayAreP)

@@ -1,6 +1,6 @@
 function Remove-SDPVolumeSnapshot {
     param(
-        [parameter(ValueFromPipelineByPropertyName)]
+        [parameter(Mandatory,ValueFromPipelineByPropertyName)]
         [Alias('id')]
         [array] $objectid,
         [parameter()]

@@ -15,10 +15,16 @@ function Set-SDPHostGroup {
     )
     <#
         .SYNOPSIS
+        Set any existing Host Group settings. 
 
         .EXAMPLE 
+        Set-SDPHostGroup -id 4 -description "TestDev SQL hosts"
 
-        .DESCRIPTION
+        .EXAMPLE 
+        Get-SDPHostGroup | ? {$_.name -like "TestDev*"} | Set-SDPHostGroup -description "TestDev Host Groups"
+
+        .DESCRIPTION    
+        Use this function to set any host group settings. This function accepts piped input from Get-SDPHostGroup. 
 
         .NOTES
         Authored by J.R. Phillips (GitHub: JayAreP)

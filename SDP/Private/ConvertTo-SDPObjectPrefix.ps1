@@ -3,7 +3,7 @@ function ConvertTo-SDPObjectPrefix {
         [parameter(Mandatory)]
         [string] $ObjectID,
         [parameter(Mandatory)]
-        [ValidateSet('volumes','volume_groups','hosts','host_groups','snapshots','vg_capacity_policies',IgnoreCase = $false)]
+        [ValidateSet('volumes','volume_groups','hosts','host_groups','snapshots','vg_capacity_policies','retention_policies',IgnoreCase = $false)]
         [string] $ObjectPath,
         [parameter()]
         [switch] $nestedObject,

@@ -30,15 +30,15 @@ function New-SDPHostMapping {
 
     process{
         ## Special Ops
-        $hostid = Get-SDPHost -name $hostName
-        $volumeid = Get-SDPVolume -name $volumeName
-        $hostGroupid = Get-SDPHostGroup -name $hostGroupName
-
+        
         if ($hostName) {
+            $hostid = Get-SDPHost -name $hostName
             $hostPath = ConvertTo-SDPObjectPrefix -ObjectPath "hosts" -ObjectID $hostid.id -nestedObject
         } elseif ($hostGroupName) {
+            $hostGroupid = Get-SDPHostGroup -name $hostGroupName
             $hostPath = ConvertTo-SDPObjectPrefix -ObjectPath "hosts" -ObjectID $hostGroupid.id -nestedObject
         }
+        $volumeid = Get-SDPVolume -name $volumeName
         $volumePath = ConvertTo-SDPObjectPrefix -ObjectPath "volumes" -ObjectID $volumeid.id -nestedObject
 
         $o = New-Object psobject

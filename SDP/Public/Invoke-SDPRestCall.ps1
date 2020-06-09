@@ -38,7 +38,7 @@ function Invoke-SDPRestCall {
 
     $endpointURI = New-SDPURI -endpoint $endpoint -k2context $k2context
 
-    # Cleanup the paramter list and construct the URI with the argued parameters. 
+    # Cleanup the parameter list and construct the URI with the argued parameters. (This removes system parameters, such as 'Verbose' and 'ErrorAction')
 
     if ($parameterList) {
         foreach ($p in [System.Management.Automation.PSCmdlet]::CommonParameters) {
@@ -61,7 +61,7 @@ function Invoke-SDPRestCall {
         Write-Verbose $bodyjson
     }
 
-    # decalre the requested context's credential information 
+    # declare the requested context's credential information 
 
     $restContext = Get-Variable -Scope Global -Name $k2context -ValueOnly
 

@@ -1,4 +1,4 @@
-function Remove-K2RFTemplate {
+function CMDLETNAME {
     param(
         [parameter(ValueFromPipelineByPropertyName)]
         [Alias('id')]
@@ -9,7 +9,6 @@ function Remove-K2RFTemplate {
 
     ## Special Ops
     begin {
-        Write-Verbose "Removing..."
         $endpoint = ENDPOINTNAME
     }
 

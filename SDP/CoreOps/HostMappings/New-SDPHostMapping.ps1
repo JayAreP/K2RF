@@ -1,7 +1,7 @@
 function New-SDPHostMapping {
     param(
         [parameter(ValueFromPipelineByPropertyName,Mandatory)]
-        [Alias('name')]
+        [Alias('pipeName')]
         [string] $hostName,
         [parameter()]
         [string] $volumeName,

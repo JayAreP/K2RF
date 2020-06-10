@@ -1,8 +1,8 @@
 function Set-SDPRetentionPolicy {
     param(
         [parameter(Mandatory,ValueFromPipelineByPropertyName)]
-        [alias('id')]
-        [string] $objectId,
+        [alias('pipeId')]
+        [string] $id,
         [parameter()]
         [string] $name,
         [parameter()]

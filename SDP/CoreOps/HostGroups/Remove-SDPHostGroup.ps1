@@ -1,8 +1,8 @@
 function Remove-SDPHostGroup {
     param(
         [parameter(ValueFromPipelineByPropertyName)]
-        [Alias('id')]
-        [array] $objectid,
+        [Alias('pipeId')]
+        [array] $id,
         [parameter()]
         [string] $name,
         [parameter()]
@@ -34,12 +34,12 @@ function Remove-SDPHostGroup {
 
     process {
         # Special Ops
-        if ($name -and !$objectID) {
-            $objectid = (Get-SDPHostGroup -name $name).id
+        if ($name -and !$id) {
+            $id = (Get-SDPHostGroup -name $name).id
         }
 
         # Make the call
-        $endpointURI = $endpoint + '/' + $objectid
+        $endpointURI = $endpoint + '/' + $id
         $results = Invoke-SDPRestCall -endpoint $endpointURI -method DELETE -k2context $k2context
         return $results
     }

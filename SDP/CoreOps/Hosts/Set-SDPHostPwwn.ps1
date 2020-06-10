@@ -1,7 +1,7 @@
 function Set-SDPHostPwwn {
     param(
         [parameter(Mandatory,ValueFromPipelineByPropertyName)]
-        [Alias('name')]
+        [Alias('pipeName')]
         [string] $hostName,
         [parameter(Mandatory)]
         [string] $pwwn,

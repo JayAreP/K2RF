@@ -1,8 +1,8 @@
 function Set-SDPVolumeGroup {
     param(
         [parameter(ValueFromPipelineByPropertyName)]
-        [Alias('id')]
-        [array] $objectid,
+        [Alias('pipeId')]
+        [array] $id,
         [parameter(Mandatory)]
         [string] $name,
         [parameter()]
@@ -70,7 +70,7 @@ function Set-SDPVolumeGroup {
 
         $body = $o 
 
-        $endpointURI = $endpoint + '/' + $objectid
+        $endpointURI = $endpoint + '/' + $id
         
         $results = Invoke-SDPRestCall -endpoint $endpointURI -method PATCH -body $body -k2context $k2context 
         return $results

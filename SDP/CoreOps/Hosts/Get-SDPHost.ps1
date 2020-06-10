@@ -1,7 +1,8 @@
 function Get-SDPHost {
     param(
-        [parameter()]
-        [Alias("HostGroup")]
+        [parameter(ValueFromPipelineByPropertyName)]
+        [Alias('pipeId')]
+        [Alias("hostGroup")]
         [string] $host_group,
         [parameter()]
         [int] $id,
@@ -31,11 +32,12 @@ function Get-SDPHost {
     }
     
     process {
-        if ($PSBoundParameters.Keys.Contains('Verbose')) {
-            $results = Invoke-SDPRestCall -endpoint $endpoint -method GET -parameterList $PSBoundParameters -Verbose -k2context $k2context
-        } else {
-            $results = Invoke-SDPRestCall -endpoint $endpoint -method GET -parameterList $PSBoundParameters -k2context $k2context
+        if ($host_group) {
+            Write-Verbose "host_group specified, parsing KDP Object"
+            $PSBoundParameters.host_group = ConvertTo-SDPObjectPrefix -ObjectPath host_groups -ObjectID $host_group -nestedObject
         }
+
+        $results = Invoke-SDPRestCall -endpoint $endpoint -method GET -parameterList $PSBoundParameters -k2context $k2context
         return $results
     }
 

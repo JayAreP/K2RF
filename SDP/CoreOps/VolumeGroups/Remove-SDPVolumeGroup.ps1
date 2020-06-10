@@ -1,8 +1,8 @@
 function Remove-SDPVolumeGroup {
     param(
         [parameter(ValueFromPipelineByPropertyName)]
-        [Alias('id')]
-        [array] $objectid,
+        [Alias('pipeId')]
+        [array] $id,
         [parameter()]
         [string] $name,
         [parameter()]
@@ -37,13 +37,13 @@ function Remove-SDPVolumeGroup {
             } elseif (($volgrpname | measure-object).count -gt 1) {
                 return "Too many replies with $name"
             } else {
-                $objectid = $volgrpname.id
+                $id = $volgrpname.id
             }
         }
 
         ## Make the call
 
-        $endpointURI = $endpoint + '/' + $objectid
+        $endpointURI = $endpoint + '/' + $id
 
         $results = Invoke-SDPRestCall -endpoint $endpointURI -method DELETE -k2context $k2context
         return $results

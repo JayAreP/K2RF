@@ -1,8 +1,8 @@
 function Set-SDPHost {
     param(
         [parameter(ValueFromPipelineByPropertyName,Mandatory)]
-        [Alias('id')]
-        [string] $objectid,
+        [Alias('pipeId')]
+        [string] $id,
         [parameter()]
         [string] $hostGroupName,
         [parameter()]
@@ -47,7 +47,7 @@ function Set-SDPHost {
 
         $body = $o 
 
-        $endpointURI = $endpoint + '/' + $objectid
+        $endpointURI = $endpoint + '/' + $id
         $results = Invoke-SDPRestCall -endpoint $endpointURI -method PATCH -body $body -k2context $k2context 
         return $results
     }

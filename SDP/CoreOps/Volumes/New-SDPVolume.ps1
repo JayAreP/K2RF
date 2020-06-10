@@ -7,7 +7,7 @@ function New-SDPVolume {
         [parameter()]
         [string] $VolumeGroupName,
         [parameter(ValueFromPipelineByPropertyName)]
-        [Alias('id')]
+        [Alias('pipeId')]
         [string] $volumeGroupId,
         [parameter()]
         [switch] $VMWare,

@@ -1,7 +1,7 @@
 function Get-SDPHostMapping {
     param(
         [parameter(ValueFromPipelineByPropertyName)]
-        [Alias('name')]
+        [Alias('pipeName')]
         [string] $hostName,
         [parameter()]
         [int] $id,

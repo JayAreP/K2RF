@@ -3,14 +3,14 @@ function Get-SDPVolume {
         [parameter()]
         [string] $description,
         [parameter()]
-        [int] $ObjectId,
+        [int] $id,
         [parameter(Position=1)]
         [string] $name,
         [parameter()]
         [Alias("VmwareSupport")]
         [bool] $vmware_support,
         [parameter(ValueFromPipelineByPropertyName)]
-        [Alias('id')]
+        [Alias('pipeId')]
         [Alias("VolumeGroup")]
         [string] $volume_group,
         [parameter()]

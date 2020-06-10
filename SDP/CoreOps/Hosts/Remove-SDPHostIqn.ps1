@@ -1,8 +1,8 @@
 function Remove-SDPHostIqn {
     param(
         [parameter(ValueFromPipelineByPropertyName)]
-        [Alias('id')]
-        [array] $objectid,
+        [Alias('pipeId')]
+        [array] $id,
         [parameter()]
         [string] $k2context = 'k2rfconnection'
     )
@@ -14,7 +14,7 @@ function Remove-SDPHostIqn {
 
     process {
         ## Make the call
-        $endpointURI = $endpoint + '/' + $objectid
+        $endpointURI = $endpoint + '/' + $id
         $results = Invoke-SDPRestCall -endpoint $endpointURI -method DELETE -k2context $k2context
         return $results
     }

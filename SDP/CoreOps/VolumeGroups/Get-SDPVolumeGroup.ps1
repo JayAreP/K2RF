@@ -1,8 +1,5 @@
 function Get-SDPVolumeGroup {
     param(
-        [parameter(ValueFromPipelineByPropertyName)]
-        [Alias('volume_group')]
-        [array] $volumeGroupObject,
         [parameter()]
         [Alias("CapacityState")]
         [string] $capacity_state,

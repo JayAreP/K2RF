@@ -1,8 +1,8 @@
 function Remove-SDPHost {
     param(
         [parameter(ValueFromPipelineByPropertyName)]
-        [Alias('id')]
-        [string] $objectid,
+        [Alias('pipeId')]
+        [string] $id,
         [parameter(Position=1)]
         [string] $name,
         [parameter()]
@@ -28,10 +28,10 @@ function Remove-SDPHost {
 
     process {
         if ($name) {
-            $objectid = (Get-SDPHost -name $name).id
+            $id = (Get-SDPHost -name $name).id
         }
-        Write-Verbose "Removing volume with id $objectid"
-        $endpointURI = $endpoint + '/' + $objectid
+        Write-Verbose "Removing volume with id $id"
+        $endpointURI = $endpoint + '/' + $id
         $results = Invoke-SDPRestCall -endpoint $endpointURI -method DELETE -k2context $k2context
         return $results.hits
     }

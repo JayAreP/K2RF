@@ -1,8 +1,8 @@
 function Remove-SDPVolume {
     param(
         [parameter(ValueFromPipelineByPropertyName)]
-        [Alias('id')]
-        [string] $objectid,
+        [Alias('pipeId')]
+        [string] $id,
         [parameter()]
         [string] $name,
         [parameter()]
@@ -38,14 +38,14 @@ function Remove-SDPVolume {
             } elseif (($volname | measure-object).count -gt 1) {
                 return "Too many replies with $name"
             } else {
-                $objectid = $volname.id
+                $id = $volname.id
             }
         }
 
         # Call
         
-        $endpointURI = $endpoint + '/' + $objectid
-        Write-Verbose "Removing volume with id $objectid"
+        $endpointURI = $endpoint + '/' + $id
+        Write-Verbose "Removing volume with id $id"
         $results = Invoke-SDPRestCall -endpoint $endpointURI -method DELETE -k2context $k2context
 
         return $results

@@ -1,6 +1,7 @@
 function Set-SDPHostGroup {
     param(
         [parameter(ValueFromPipelineByPropertyName,Mandatory)]
+        [Alias('pipeId')]
         [string] $id,
         [parameter()]
         [string] $name,

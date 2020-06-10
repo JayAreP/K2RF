@@ -1,7 +1,7 @@
 function Set-SDPHostIqn {
     param(
         [parameter(Mandatory,ValueFromPipelineByPropertyName)]
-        [Alias('name')]
+        [Alias('pipeName')]
         [string] $hostName,
         [parameter(Mandatory)]
         [string] $iqn,

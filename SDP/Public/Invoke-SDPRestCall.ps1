@@ -71,17 +71,15 @@ function Invoke-SDPRestCall {
             try {
                 $results = Invoke-RestMethod -Method $method -Uri $endpointURI -Body $bodyjson -Credential $restContext.credentials -SkipCertificateCheck -ContentType 'application/json' 
             } catch {
-                $return = (($_.ErrorDetails.Message | ConvertFrom-Json).error_msg).split(',')
-                Write-Host 'ERROR:'
-                return $return
+                $return = (($_.ErrorDetails.Message | ConvertFrom-Json).error_msg)
+                return $return | Write-Error
             }
         } else {
             try {
                 $results = Invoke-RestMethod -Method $method -Uri $endpointURI -Credential $restContext.credentials -SkipCertificateCheck
             } catch {
-                $return = (($_.ErrorDetails.Message | ConvertFrom-Json).error_msg).split(',')
-                Write-Host 'ERROR:'
-                return $return
+                $return = (($_.ErrorDetails.Message | ConvertFrom-Json).error_msg)
+                return $return | Write-Error
             }
         }
     } elseif ($PSVersionTable.PSEdition -eq 'Desktop') {
@@ -96,17 +94,15 @@ function Invoke-SDPRestCall {
             try {
                 $results = Invoke-RestMethod -Method $method -Uri $endpointURI -Body $bodyjson -Credential $restContext.credentials -ContentType 'application/json' 
             } catch {
-                $return = (($_.ErrorDetails.Message | ConvertFrom-Json).error_msg).split(',')
-                Write-Host 'ERROR:'
-                return $return
+                $return = (($_.ErrorDetails.Message | ConvertFrom-Json).error_msg)
+                return $return | Write-Error
             }
         } else {
             try {
                 $results = Invoke-RestMethod -Method $method -Uri $endpointURI -Credential $restContext.credentials 
             } catch {
-                $return = (($_.ErrorDetails.Message | ConvertFrom-Json).error_msg).split(',')
-                Write-Host 'ERROR:'
-                return $return
+                $return = (($_.ErrorDetails.Message | ConvertFrom-Json).error_msg)
+                return $return | Write-Error
             }
             
         }
@@ -145,6 +141,13 @@ function Invoke-SDPRestCall {
 
 
     # Return the results of the call back to the cmdlet.
-    
+    foreach ($o in $results) {
+        if ($o.id) {
+            $o | Add-Member -MemberType NoteProperty -Name 'pipeId' -Value $o.id
+        } 
+        if ($o.name) {
+            $o | Add-Member -MemberType NoteProperty -Name 'pipeName' -Value $o.name
+        }
+    }
     return $results
 }

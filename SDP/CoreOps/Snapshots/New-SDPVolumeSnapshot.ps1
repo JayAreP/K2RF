@@ -1,9 +1,9 @@
 function New-SDPVolumeSnapshot {
     param(
         [parameter(Mandatory)]
-        [string] $snapshotName,
+        [string] $name,
         [parameter(Mandatory,ValueFromPipelineByPropertyName)]
-        [alias('name')]
+        [alias('pipeName')]
         [string] $volumeGroupName,
         [parameter(Mandatory)]
         [string] $retentionPolicyName,
@@ -28,7 +28,7 @@ function New-SDPVolumeSnapshot {
         $retentionPolicyPath = ConvertTo-SDPObjectPrefix -ObjectPath 'retention_policies' -ObjectID $retentionPolicyObject.id -nestedObject
 
         $o = New-Object psobject
-        $o | Add-Member -MemberType NoteProperty -Name "short_name" -Value $snapshotName
+        $o | Add-Member -MemberType NoteProperty -Name "short_name" -Value $name
         $o | Add-Member -MemberType NoteProperty -Name "source" -Value $volumeGroupPath
         $o | Add-Member -MemberType NoteProperty -Name "retention_policy" -Value $retentionPolicyPath
         if ($deletable) {

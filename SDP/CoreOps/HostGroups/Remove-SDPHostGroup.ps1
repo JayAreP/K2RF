@@ -2,7 +2,7 @@ function Remove-SDPHostGroup {
     param(
         [parameter(ValueFromPipelineByPropertyName)]
         [Alias('pipeId')]
-        [array] $id,
+        [string] $id,
         [parameter()]
         [string] $name,
         [parameter()]

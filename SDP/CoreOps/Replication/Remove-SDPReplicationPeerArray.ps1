@@ -1,4 +1,4 @@
-function Remove-SDPRetentionPolicy {
+function Remove-SDPReplicationPeerArray {
     param(
         [parameter(ValueFromPipelineByPropertyName)]
         [Alias('pipeId')]
@@ -9,7 +9,7 @@ function Remove-SDPRetentionPolicy {
 
     ## Special Ops
     begin {
-        $endpoint = "retention_policies"
+        $endpoint = 'replication/peer_k2arrays'
     }
 
     process {

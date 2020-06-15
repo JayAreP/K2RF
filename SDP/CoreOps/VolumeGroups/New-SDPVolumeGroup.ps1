@@ -65,7 +65,15 @@ function New-SDPVolumeGroup {
         
         $body = $o
 
-        $results = Invoke-SDPRestCall -endpoint $endpoint -method POST -body $body -k2context $k2context
+        try {
+            Invoke-SDPRestCall -endpoint $endpoint -method POST -body $body -k2context $k2context -erroraction silentlycontinue
+        } catch {
+            return $Error[0]
+        }
+        
+        Write-Verbose "collecting resulting object"
+        $results = Get-SDPVolumeGroup -name $name
+
         return $results
     }
     

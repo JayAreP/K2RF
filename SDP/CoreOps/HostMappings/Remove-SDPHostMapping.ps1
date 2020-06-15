@@ -2,7 +2,7 @@ function Remove-SDPHostMapping {
     param(
         [parameter(ValueFromPipelineByPropertyName)]
         [Alias('pipeId')]
-        [array] $id,
+        [string] $id,
         [parameter()]
         [string] $k2context = 'k2rfconnection'
     )

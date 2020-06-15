@@ -19,10 +19,20 @@ function CMDLETNAME {
             $o | Add-Member -MemberType NoteProperty -Name "size" -Value $size
         }
 
-        $body = $o
+        # Make the call 
 
-        ## Make the call
-        $results = Invoke-SDPRestCall -endpoint $endpoint -method POST -body $body -k2context $k2context 
+        $body = $o
+        
+        try {
+            Invoke-SDPRestCall -endpoint $endpoint -method POST -body $body -k2context $k2context -erroraction silentlycontinue
+        } catch {
+            return $Error[0]
+        }
+        
+        Write-Verbose "collecting resulting object"
+        $results = Get-CMDLETNAME -name $name
+
         return $results
     }
 }
+

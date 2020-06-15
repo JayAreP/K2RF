@@ -1,6 +1,7 @@
 function Get-SDPHostIqn {
     param(
         [parameter(ValueFromPipelineByPropertyName)]
+        [Alias('pipeName')]
         [Alias('name')]
         [string] $hostName,
         [parameter()]

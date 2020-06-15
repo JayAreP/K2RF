@@ -78,12 +78,19 @@ function New-SDPVolume {
         if ($ReadOnly) {
             $o | Add-Member -MemberType NoteProperty -Name read_only -Value $true
         }
-        
-        $body = $o
 
         # Call 
+
+        $body = $o
         
-        $results = Invoke-SDPRestCall -endpoint $endpoint -method POST -body $body -k2context $k2context
+        try {
+            Invoke-SDPRestCall -endpoint $endpoint -method POST -body $body -k2context $k2context -erroraction silentlycontinue
+        } catch {
+            return $Error[0]
+        }
+        
+        Write-Verbose "collecting resulting object"
+        $results = Get-SDPVolume -name $name
 
         return $results
     }

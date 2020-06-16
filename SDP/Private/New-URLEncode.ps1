@@ -12,6 +12,6 @@ function New-URLEncode {
     $url = $url.Replace($baseurl,$null)
     $url = $url.Replace(':','%3A').replace('.','%2E')
     $url = $baseurl + $url
-    write-verbose "-- Invoke-SDPRestCall --> New-URLEncode -> Using URLEncode $url"
+    # write-verbose "-- Invoke-SDPRestCall --> New-URLEncode -> Using URLEncode $url"
     return $url
 }

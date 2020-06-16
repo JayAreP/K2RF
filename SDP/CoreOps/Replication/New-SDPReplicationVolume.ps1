@@ -1,12 +1,12 @@
 function New-SDPReplicationVolume {
     param(
+        [parameter(Mandatory)]
+        [string] $name,
         [parameter(ValueFromPipelineByPropertyName, Mandatory)]
         [Alias('pipeName')]
-        [string] $name,
-        [parameter(Mandatory)]
         [string] $volumeName,
         [parameter(Mandatory)]
-        [string] $replicationSession,
+        [string] $replicationSessionName,
         [parameter()]
         [string] $k2context = 'k2rfconnection'
     )
@@ -19,18 +19,18 @@ function New-SDPReplicationVolume {
         ## Special Ops
 
         $volumeId = Get-SDPVolume -name $volumeName
-        $sessionId = Get-SDPReplicationPeerArray -name $replicationSession
+        $sessionId = Get-SDPReplicationPeerArray -name $replicationSessionName
 
-        $volumeId = Get-SDPVolumeGroup -name $volumeGroupName
-        $volumeGroupPath = ConvertTo-SDPObjectPrefix -ObjectID $volumeId.id -ObjectPath 'volume_groups' -nestedObject
+        $volumeId = Get-SDPVolume -name $volumeName
+        $volumeName = ConvertTo-SDPObjectPrefix -ObjectID $volumeId.id -ObjectPath 'volumes' -nestedObject
 
-        $sessionId = Get-SDPReplicationPeerArray -name $replicationSession
+        $sessionId = Get-SDPReplicationSessions -name $replicationSessionName
         $peerArrayPath = ConvertTo-SDPObjectPrefix -ObjectID $sessionId.id -ObjectPath 'replication/sessions' -nestedObject
 
         # Build the object
         $o = New-Object psobject
         $o | Add-Member -MemberType NoteProperty -Name "name" -Value $name
-        $o | Add-Member -MemberType NoteProperty -Name "local_volume" -Value $volumeGroupPath
+        $o | Add-Member -MemberType NoteProperty -Name "local_volume" -Value $volumeName
         $o | Add-Member -MemberType NoteProperty -Name "replication_session" -Value $peerArrayPath
 
         # Make the call 
@@ -38,7 +38,7 @@ function New-SDPReplicationVolume {
         $body = $o
         
         try {
-            # Invoke-SDPRestCall -endpoint $endpoint -method POST -body $body -k2context $k2context -erroraction silentlycontinue
+            Invoke-SDPRestCall -endpoint $endpoint -method POST -body $body -k2context $k2context -erroraction silentlycontinue
         } catch {
             return $Error[0]
         }

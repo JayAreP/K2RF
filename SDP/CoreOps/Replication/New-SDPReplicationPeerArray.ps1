@@ -39,10 +39,7 @@ function New-SDPReplicationPeerArray {
             return $Error[0]
         }
         
-        Write-Verbose "collecting resulting object"
-        $results = Get-SDPReplicationPeerArray -name $name
-
-        return $results
+        return $body
     }
 }
 

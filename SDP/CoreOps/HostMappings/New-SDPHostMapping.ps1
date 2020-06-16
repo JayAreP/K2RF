@@ -48,7 +48,12 @@ function New-SDPHostMapping {
         $body = $o
 
         ## Make the call
-        $results = Invoke-SDPRestCall -endpoint $endpoint -method POST -body $body -k2context $k2context 
-        return $results
+        try {
+            Invoke-SDPRestCall -endpoint $endpoint -method POST -body $body -k2context $k2context -erroraction silentlycontinue
+        } catch {
+            return $Error[0]
+        }
+        
+        return $body
     }
 }

@@ -71,10 +71,7 @@ function New-SDPVolumeGroup {
             return $Error[0]
         }
         
-        Write-Verbose "collecting resulting object"
-        $results = Get-SDPVolumeGroup -name $name
-
-        return $results
+        return $body
     }
     
 }

@@ -89,9 +89,6 @@ function New-SDPVolume {
             return $Error[0]
         }
         
-        Write-Verbose "collecting resulting object"
-        $results = Get-SDPVolume -name $name
-
-        return $results
+        return $body
     }
 }

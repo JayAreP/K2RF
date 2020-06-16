@@ -55,9 +55,6 @@ function New-SDPHostGroup {
             return $Error[0]
         }
         
-        Write-Verbose "collecting resulting object"
-        $results = Get-SDPHostGroup -name $name
-
-        return $results
+        return $body
     }
 }

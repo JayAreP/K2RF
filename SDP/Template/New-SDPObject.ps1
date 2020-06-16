@@ -29,10 +29,7 @@ function CMDLETNAME {
             return $Error[0]
         }
         
-        Write-Verbose "collecting resulting object"
-        $results = Get-CMDLETNAME -name $name
-
-        return $results
+        return $body
     }
 }
 

@@ -66,10 +66,7 @@ function New-SDPHost {
             return $Error[0]
         }
         
-        Write-Verbose "collecting resulting object"
-        $results = Get-SDPHost -name $name
-
-        return $results
+        return $body
     }
 
 }

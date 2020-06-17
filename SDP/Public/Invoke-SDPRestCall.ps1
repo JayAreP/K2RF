@@ -10,7 +10,11 @@ function Invoke-SDPRestCall {
         [parameter()]
         [hashtable] $parameterList,
         [parameter()]
-        [string] $k2context = 'k2rfconnection'
+        [string] $k2context = 'k2rfconnection',
+        [parameter()]
+        [int] $limit = 9999,
+        [parameter()]
+        [switch] $strictURI
     )
 
     
@@ -37,6 +41,8 @@ function Invoke-SDPRestCall {
     # Delcare the serviced API endpoint.
 
     $endpointURI = New-SDPURI -endpoint $endpoint -k2context $k2context
+    $limitURI = '__limit=' + $limit.ToString() + '&'
+    $endpointURI = $endpointURI + $limitURI
 
     # Cleanup the parameter list and construct the URI with the argued parameters. (This removes system parameters, such as 'Verbose' and 'ErrorAction')
 
@@ -45,14 +51,46 @@ function Invoke-SDPRestCall {
             $parameterList.Remove($p)
         }
         $parameterList.Remove('k2context')
-        Write-Verbose "-- REST Using following parameters --"
-        $parameterList | ConvertTo-Json -Depth 10 | write-verbose
     }
     
-    # Clean up the final URI.
+    if ($parameterList.Count -gt 0) {
 
+        Write-Verbose "-- REST Using following parameters --"
+        $parameterList | ConvertTo-Json -Depth 10 | write-verbose
+        <#
+        Use primary URL query response here
+        #>
+        if ($strictURI) {
+            $searchkeys = $parameterList.keys.split()
+            foreach ($p in $searchkeys) {
+                Write-Verbose "Working with key: $p"
+                $parseTarget = $parameterList[$p]
+                # return $parseTarget
+                if ($parseTarget.ref) {
+                    Write-Verbose "$p is declares as REF... skipping URI"
+                } else {
+                    if ($parseTarget -is [int]) {
+                        $endpointURI = $endpointURI + $p + '__in='+$parseTarget + '&'
+                        # $parameterList.Remove($p)
+                    } else {
+                        $endpointURI = $endpointURI + $p + '__contains='+$parseTarget + '&'
+                        # $parameterList.Remove($p)
+                    }
+                    
+                }
+            }
+        }
+
+    }
+
+    
+    
+    # Clean up the final URI.
+    # 
     $endpointURI = $endpointURI.Substring(0,$endpointURI.Length-1)
     $endpointURI = New-URLEncode -URL $endpointURI -k2context $k2context
+    # $limitURI = '&__limit=' + $limit.ToString()
+    # $endpointURI = $endpointURI + $limitURI
 
     Write-Verbose "Requesting $method from $endpointURI"
     if ($body) {

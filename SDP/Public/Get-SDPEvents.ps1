@@ -49,7 +49,7 @@ function Get-SDPEvents {
             $PSBoundParameters.timestamp = $cdate
         }
         
-        $results = Invoke-SDPRestCall -endpoint $endpoint -method GET -parameterList $PSBoundParameters -k2context $k2context
+        $results = Invoke-SDPRestCall -endpoint $endpoint -method GET -parameterList $PSBoundParameters -k2context $k2context -strictURI
         return $results
     }
 }

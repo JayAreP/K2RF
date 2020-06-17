@@ -89,6 +89,13 @@ function New-SDPVolume {
             return $Error[0]
         }
         
-        return $body
+        $results = Get-SDPVolume -name $name
+        while (!$results) {
+            Write-Verbose " --> Waiting on volume $name"
+            $results = Get-SDPVolume -name $name
+            Start-Sleep 1
+        }
+
+        return $results
     }
 }

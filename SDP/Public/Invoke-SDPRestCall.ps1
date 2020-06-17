@@ -144,7 +144,7 @@ function Invoke-SDPRestCall {
         }
     }
 
-    # Due to how the API only accepts a single argument for any kind of filter, I instead have to capture all results and filter for the desired objects after-the-fact.
+    # Due to how the API only accepts arguments for any kind of filter, I instead have to capture all results and filter for the desired objects after-the-fact.
     # If this looks inefficient, it's because it is. Thankfully there's not a lot of metadata presented through these queries, so the operational impact is minimal. 
 
     $results = $results.hits

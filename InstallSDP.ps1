@@ -39,7 +39,7 @@ $moduleInfo = Test-ModuleManifest -Path ./SDP/sdp.psd1
 
 $fullfolder = $fullpath + $moduleInfo.Version.Major + '.' + $moduleInfo.Version.Minor
 
-if (Get-Item $fullfolder) {
+if (Get-Item $fullfolder -ErrorAction SilentlyContinue) {
     Remove-Item -Path $fullfolder -Recurse
 }
 

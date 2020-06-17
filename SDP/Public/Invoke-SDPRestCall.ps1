@@ -17,7 +17,6 @@ function Invoke-SDPRestCall {
         [switch] $strictURI
     )
 
-    
     <#
         .SYNOPSIS 
         Custom rest call for Kaminario K2 platform 
@@ -41,8 +40,10 @@ function Invoke-SDPRestCall {
     # Delcare the serviced API endpoint.
 
     $endpointURI = New-SDPURI -endpoint $endpoint -k2context $k2context
-    $limitURI = '__limit=' + $limit.ToString() + '&'
-    $endpointURI = $endpointURI + $limitURI
+    if ($method -eq 'GET') {
+        $limitURI = '__limit=' + $limit.ToString() + '&'
+        $endpointURI = $endpointURI + $limitURI
+    }
 
     # Cleanup the parameter list and construct the URI with the argued parameters. (This removes system parameters, such as 'Verbose' and 'ErrorAction')
 
@@ -54,39 +55,28 @@ function Invoke-SDPRestCall {
     }
 
     if ($parameterList.Count -gt 0) {
-
         Write-Verbose "-- REST Using following parameters --"
         $parameterList | ConvertTo-Json -Depth 10 | write-verbose
-        <#
-        Use primary URL query response here
-        #>
         if ($strictURI) {
             $searchkeys = $parameterList.keys.split()
             foreach ($p in $searchkeys) {
                 Write-Verbose "Working with key: $p"
                 $parseTarget = $parameterList[$p]
-                # return $parseTarget
                 if ($parseTarget.ref) {
                     Write-Verbose "$p is declares as REF... skipping URI"
                 } else {
                     if ($parseTarget -is [int]) {
                         $endpointURI = $endpointURI + $p + '__in='+$parseTarget + '&'
-                        # $parameterList.Remove($p)
                     } else {
                         $endpointURI = $endpointURI + $p + '__contains='+$parseTarget + '&'
-                        # $parameterList.Remove($p)
                     }
-                    
                 }
             }
         }
-
     }
 
-    
-    
     # Clean up the final URI.
-    # 
+
     $endpointURI = $endpointURI.Substring(0,$endpointURI.Length-1)
     $endpointURI = New-URLEncode -URL $endpointURI -k2context $k2context
 
@@ -102,6 +92,7 @@ function Invoke-SDPRestCall {
     $restContext = Get-Variable -Scope Global -Name $k2context -ValueOnly
 
     # Make the call. 
+
     if ($PSVersionTable.PSEdition -eq 'Core') {
         if ($body) {
             try {
@@ -140,12 +131,14 @@ function Invoke-SDPRestCall {
                 $return = (($_.ErrorDetails.Message | ConvertFrom-Json).error_msg)
                 return $return | Write-Error
             }
-            
         }
     }
 
-    # Due to how the API only accepts arguments for any kind of filter, I instead have to capture all results and filter for the desired objects after-the-fact.
-    # If this looks inefficient, it's because it is. Thankfully there's not a lot of metadata presented through these queries, so the operational impact is minimal. 
+    <#
+        Due to how the API accepts arguments, I often need to capture all results and filter for the desired objects after-the-fact.
+        If this looks inefficient, it's because it is. Thankfully there's not a lot of metadata presented through these queries, 
+        so the operational impact is minimal. 
+    #>
 
     $results = $results.hits
     
@@ -174,7 +167,6 @@ function Invoke-SDPRestCall {
             
         }
     }
-
 
     # Return the results of the call back to the cmdlet.
     foreach ($o in $results) {

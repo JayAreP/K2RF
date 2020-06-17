@@ -12,7 +12,7 @@
 RootModule = 'sdp.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.8'
+ModuleVersion = '0.801'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()

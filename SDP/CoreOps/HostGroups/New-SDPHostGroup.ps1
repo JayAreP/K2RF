@@ -55,6 +55,14 @@ function New-SDPHostGroup {
             return $Error[0]
         }
         
-        return $body
+        $results = Get-SDPHostGroup -name $name
+        while (!$results) {
+            Write-Verbose " --> Waiting on host group $name"
+            $results = Get-SDPHostGroup -name $name
+            Start-Sleep 1
+        }
+
+        return $results
     }
 }
+

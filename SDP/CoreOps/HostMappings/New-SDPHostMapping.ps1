@@ -1,6 +1,6 @@
 function New-SDPHostMapping {
     param(
-        [parameter(ValueFromPipelineByPropertyName,Mandatory)]
+        [parameter(ValueFromPipelineByPropertyName)]
         [Alias('pipeName')]
         [string] $hostName,
         [parameter()]
@@ -36,7 +36,7 @@ function New-SDPHostMapping {
             $hostPath = ConvertTo-SDPObjectPrefix -ObjectPath "hosts" -ObjectID $hostid.id -nestedObject
         } elseif ($hostGroupName) {
             $hostGroupid = Get-SDPHostGroup -name $hostGroupName
-            $hostPath = ConvertTo-SDPObjectPrefix -ObjectPath "hosts" -ObjectID $hostGroupid.id -nestedObject
+            $hostPath = ConvertTo-SDPObjectPrefix -ObjectPath "host_groups" -ObjectID $hostGroupid.id -nestedObject
         }
         $volumeid = Get-SDPVolume -name $volumeName
         $volumePath = ConvertTo-SDPObjectPrefix -ObjectPath "volumes" -ObjectID $volumeid.id -nestedObject
@@ -53,7 +53,7 @@ function New-SDPHostMapping {
         } catch {
             return $Error[0]
         }
-        
+
         return $body
     }
 }

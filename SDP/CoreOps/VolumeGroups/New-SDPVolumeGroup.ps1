@@ -71,7 +71,14 @@ function New-SDPVolumeGroup {
             return $Error[0]
         }
         
-        return $body
+        $results = Get-SDPVolumeGroup -name $name
+        while (!$results) {
+            Write-Verbose " --> Waiting on volume group $name"
+            $results = Get-SDPVolumeGroup -name $name
+            Start-Sleep 1
+        }
+
+        return $results
     }
     
 }

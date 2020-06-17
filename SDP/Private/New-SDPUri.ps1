@@ -28,6 +28,6 @@ function New-SDPURI {
 
     $server = Get-Variable -Scope Global -Name $k2context -ValueOnly
     $results = 'https://' + $server.K2Endpoint + '/api/v2/' + $endpoint + '?'
-    # write-verbose "-- Invoke-SDPRestCall --> New-SDPURI -> Using SDPURI endpoint URI $results"
+    write-verbose "-- Invoke-SDPRestCall --> New-SDPURI -> Using SDPURI endpoint URI $results"
     return $results
 }

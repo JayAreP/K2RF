@@ -52,7 +52,7 @@ function Invoke-SDPRestCall {
         }
         $parameterList.Remove('k2context')
     }
-    
+
     if ($parameterList.Count -gt 0) {
 
         Write-Verbose "-- REST Using following parameters --"
@@ -89,8 +89,6 @@ function Invoke-SDPRestCall {
     # 
     $endpointURI = $endpointURI.Substring(0,$endpointURI.Length-1)
     $endpointURI = New-URLEncode -URL $endpointURI -k2context $k2context
-    # $limitURI = '&__limit=' + $limit.ToString()
-    # $endpointURI = $endpointURI + $limitURI
 
     Write-Verbose "Requesting $method from $endpointURI"
     if ($body) {

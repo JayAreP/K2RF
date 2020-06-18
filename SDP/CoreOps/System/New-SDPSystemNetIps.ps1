@@ -13,6 +13,24 @@ function New-SDPSystemNetIps {
         [parameter()]
         [string] $k2context = 'k2rfconnection'
     )
+    <#
+        .SYNOPSIS
+        Configures an IP address for a specific interface
+
+        .EXAMPLE 
+        Get-SDPSystemNetPorts -name c-node02_dataport01 | New-SDPSystemNetIps -ipAddress 10.100.5.2 -subnetMask 255.255.255.0 -service iscsi
+
+        .DESCRIPTION
+        This function will configure an IP for a desired NetPort. The allowed service types are going to be 'iscsi' and 'replication'. This function accepts piped input from the Get-SDPSystemNetPorts function. 
+
+        .NOTES
+        Authored by J.R. Phillips (GitHub: JayAreP)
+
+        .LINK
+        https://www.github.com/JayAreP/K2RF/
+
+    #>
+    
 
     begin {
         $endpoint = "system/net_ips"
@@ -35,18 +53,20 @@ function New-SDPSystemNetIps {
         
         try {
             Invoke-SDPRestCall -endpoint $endpoint -method POST -body $body -k2context $k2context -erroraction silentlycontinue
+            Start-Sleep 1
         } catch {
             return $Error[0]
         }
 
         $results = Get-SDPSystemNetIps -ip_address $ipAddress.IPAddressToString
-        while (!$results) {
-            Write-Verbose " --> Waiting on NetIP"
-            $results = Get-SDPSystemNetIps -ip_address $ipAddress.IPAddressToString
-            Start-Sleep 1
-        }
 
-        return $results
+        if ($results) {
+            return $results
+        } else {
+            $message = "Unable to assign IP $ipAddress to network interface. Please check the specified IP." 
+            return $message | Write-Error
+        }
+        
 
     }
 }

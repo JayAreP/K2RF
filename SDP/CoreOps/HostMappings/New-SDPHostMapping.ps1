@@ -6,6 +6,8 @@ function New-SDPHostMapping {
         [Alias('pipeName')]
         [string] $volumeName,
         [parameter()]
+        [string] $snapshotName,
+        [parameter()]
         [string] $hostGroupName,
         [parameter()]
         [string] $k2context = 'k2rfconnection'
@@ -39,8 +41,14 @@ function New-SDPHostMapping {
                 $hostPath = ConvertTo-SDPObjectPrefix -ObjectPath "hosts" -ObjectID $hostid.id -nestedObject
         }
 
-        $volumeid = Get-SDPVolume -name $volumeName
-        $volumePath = ConvertTo-SDPObjectPrefix -ObjectPath "volumes" -ObjectID $volumeid.id -nestedObject
+        if ($volumeName) {
+            $volumeid = Get-SDPVolume -name $volumeName
+            $volumePath = ConvertTo-SDPObjectPrefix -ObjectPath "volumes" -ObjectID $volumeid.id -nestedObject
+        } elseif ($snapshotName) {
+            $volumeid = Get-SDPVolumeSnapshot -name $snapshotName
+            $volumePath = ConvertTo-SDPObjectPrefix -ObjectPath "snapshots" -ObjectID $volumeid.id -nestedObject
+        }
+
 
         $o = New-Object psobject
         $o | Add-Member -MemberType NoteProperty -Name "host" -Value $hostPath

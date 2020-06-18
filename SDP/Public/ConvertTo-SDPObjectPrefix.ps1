@@ -4,7 +4,7 @@ function ConvertTo-SDPObjectPrefix {
         [Alias('pipeId')]
         [string] $ObjectID,
         [parameter(Mandatory)]
-        [ValidateSet('volumes','volume_groups','hosts','host_groups','snapshots','vg_capacity_policies','retention_policies','replication/peer_k2arrays','replication/sessions',IgnoreCase = $false)]
+        [ValidateSet('volumes','volume_groups','hosts','host_groups','snapshots','vg_capacity_policies','retention_policies','replication/peer_k2arrays','replication/sessions','system/net_ports',IgnoreCase = $false)]
         [string] $ObjectPath,
         [parameter()]
         [switch] $blank,

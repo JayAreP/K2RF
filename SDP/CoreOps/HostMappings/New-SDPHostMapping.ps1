@@ -1,9 +1,9 @@
 function New-SDPHostMapping {
     param(
+        [parameter()]
+        [string] $hostName,
         [parameter(ValueFromPipelineByPropertyName)]
         [Alias('pipeName')]
-        [string] $hostName,
-        [parameter()]
         [string] $volumeName,
         [parameter()]
         [string] $hostGroupName,
@@ -31,13 +31,14 @@ function New-SDPHostMapping {
     process{
         ## Special Ops
         
-        if ($hostName) {
-            $hostid = Get-SDPHost -name $hostName
-            $hostPath = ConvertTo-SDPObjectPrefix -ObjectPath "hosts" -ObjectID $hostid.id -nestedObject
-        } elseif ($hostGroupName) {
-            $hostGroupid = Get-SDPHostGroup -name $hostGroupName
-            $hostPath = ConvertTo-SDPObjectPrefix -ObjectPath "host_groups" -ObjectID $hostGroupid.id -nestedObject
+        if ($hostGroupName) {
+                $hostGroupid = Get-SDPHostGroup -name $hostGroupName
+                $hostPath = ConvertTo-SDPObjectPrefix -ObjectPath "host_groups" -ObjectID $hostGroupid.id -nestedObject
+            } elseif ($hostName) {
+                $hostid = Get-SDPHost -name $hostName
+                $hostPath = ConvertTo-SDPObjectPrefix -ObjectPath "hosts" -ObjectID $hostid.id -nestedObject
         }
+
         $volumeid = Get-SDPVolume -name $volumeName
         $volumePath = ConvertTo-SDPObjectPrefix -ObjectPath "volumes" -ObjectID $volumeid.id -nestedObject
 
@@ -54,6 +55,14 @@ function New-SDPHostMapping {
             return $Error[0]
         }
 
-        return $body
+        $results = Get-SDPHostMapping -volumeName $volumeName
+        while (!$results) {
+            Write-Verbose " --> Waiting on host mapping for $volumeName"
+            $results = Get-SDPHostMapping -volumeName $volumeName
+            Start-Sleep 1
+        }
+
+        return $results
+        
     }
 }

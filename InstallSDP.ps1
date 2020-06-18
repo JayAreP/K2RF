@@ -21,13 +21,18 @@ function Build-MenuFromArray {
     Write-Host `n`n
 }
 
-if ($PSVersionTable.PSEdition -eq 'Desktop') {
+if ($PSVersionTable.os -match 'Windows') {
     $PSPaths = $env:PSModulePath.Split(';')
-} elseif ($PSVersionTable.PSEdition -eq 'Core') {
+} else {
     $PSPaths = $env:PSModulePath.Split(':')
 }
 
 $installDirectory = Build-MenuFromArray -array $PSPaths -message "Select Install location"
+
+while (!$installDirectory) {
+    $installDirectory = Build-MenuFromArray -array $PSPaths -message "Select Install location"
+    start-sleep 1
+}
 
 if (Get-Module sdp) {
     Remove-Module sdp

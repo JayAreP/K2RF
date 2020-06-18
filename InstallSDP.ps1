@@ -23,6 +23,8 @@ function Build-MenuFromArray {
 
 if ($PSVersionTable.os -match 'Windows') {
     $PSPaths = $env:PSModulePath.Split(';')
+} elseif ($PSVersionTable.PSEdition -eq 'Desktop') {
+    $PSPaths = $env:PSModulePath.Split(';')
 } else {
     $PSPaths = $env:PSModulePath.Split(':')
 }

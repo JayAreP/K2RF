@@ -63,14 +63,7 @@ function New-SDPHostMapping {
             return $Error[0]
         }
 
-        $results = Get-SDPHostMapping -volumeName $volumeName
-        while (!$results) {
-            Write-Verbose " --> Waiting on host mapping for $volumeName"
-            $results = Get-SDPHostMapping -volumeName $volumeName
-            Start-Sleep 1
-        }
-
-        return $results
+        return $body
         
     }
 }

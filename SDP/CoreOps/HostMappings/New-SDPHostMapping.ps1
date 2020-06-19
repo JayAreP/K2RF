@@ -1,14 +1,12 @@
 function New-SDPHostMapping {
     param(
-        [parameter()]
-        [string] $hostName,
-        [parameter(ValueFromPipelineByPropertyName)]
+        [parameter(Mandatory,ValueFromPipelineByPropertyName)]
         [Alias('pipeName')]
+        [string] $hostName,
+        [parameter()]
         [string] $volumeName,
         [parameter()]
         [string] $snapshotName,
-        [parameter()]
-        [string] $hostGroupName,
         [parameter()]
         [string] $k2context = 'k2rfconnection'
     )
@@ -33,22 +31,24 @@ function New-SDPHostMapping {
     process{
         ## Special Ops
         
-        if ($hostGroupName) {
-                $hostGroupid = Get-SDPHostGroup -name $hostGroupName
-                $hostPath = ConvertTo-SDPObjectPrefix -ObjectPath "host_groups" -ObjectID $hostGroupid.id -nestedObject
-            } elseif ($hostName) {
-                $hostid = Get-SDPHost -name $hostName
-                $hostPath = ConvertTo-SDPObjectPrefix -ObjectPath "hosts" -ObjectID $hostid.id -nestedObject
+        $hostid = Get-SDPHost -name $hostName
+        $hostPath = ConvertTo-SDPObjectPrefix -ObjectPath "hosts" -ObjectID $hostid.id -nestedObject
+
+        if ($hostid.host_group) {
+            $message = "Host $hostName is a member of a host group, please use New-SDPHostGroupMapping for the parent group or select an ungrouped host."
+            Write-Error $message
         }
 
         if ($volumeName) {
             $volumeid = Get-SDPVolume -name $volumeName
             $volumePath = ConvertTo-SDPObjectPrefix -ObjectPath "volumes" -ObjectID $volumeid.id -nestedObject
         } elseif ($snapshotName) {
-            $volumeid = Get-SDPVolumeSnapshot -name $snapshotName
+            $volumeid = Get-SDPVolumeGroupSnapshot -name $snapshotName
             $volumePath = ConvertTo-SDPObjectPrefix -ObjectPath "snapshots" -ObjectID $volumeid.id -nestedObject
+        } else {
+            $message = "Please supply either a -volumeName or -snapshotName"
+            return $message | Write-error
         }
-
 
         $o = New-Object psobject
         $o | Add-Member -MemberType NoteProperty -Name "host" -Value $hostPath

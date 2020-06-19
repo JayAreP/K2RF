@@ -1,12 +1,16 @@
-function New-SDPVolumeView {
+function New-SDPVolumeGroupSnapshot {
     param(
         [parameter(Mandatory)]
         [string] $name,
         [parameter(Mandatory,ValueFromPipelineByPropertyName)]
         [alias('pipeName')]
-        [string] $snapshotName,
+        [string] $volumeGroupName,
         [parameter(Mandatory)]
         [string] $retentionPolicyName,
+        [parameter()]
+        [switch] $deletable,
+        [parameter()]
+        [switch] $exposable,
         [parameter()]
         [string] $k2context = 'k2rfconnection'
     )
@@ -17,19 +21,22 @@ function New-SDPVolumeView {
 
     process{
         ## Special Ops
-        $snapshotObject = Get-SDPVolumeGroupSnapshot -name $snapshotName
-        $snapshotPath = ConvertTo-SDPObjectPrefix -ObjectPath 'snapshots' -ObjectID $snapshotObject.id -nestedObject
+        $volumeGroupObject = Get-SDPVolumeGroup -name $volumeGroupName
+        $volumeGroupPath = ConvertTo-SDPObjectPrefix -ObjectPath 'volume_groups' -ObjectID $volumeGroupObject.id -nestedObject
 
         $retentionPolicyObject = Get-SDPRetentionPolicy -name $retentionPolicyName
         $retentionPolicyPath = ConvertTo-SDPObjectPrefix -ObjectPath 'retention_policies' -ObjectID $retentionPolicyObject.id -nestedObject
 
         $o = New-Object psobject
         $o | Add-Member -MemberType NoteProperty -Name "short_name" -Value $name
-        $o | Add-Member -MemberType NoteProperty -Name "source" -Value $snapshotPath
+        $o | Add-Member -MemberType NoteProperty -Name "source" -Value $volumeGroupPath
         $o | Add-Member -MemberType NoteProperty -Name "retention_policy" -Value $retentionPolicyPath
-        $o | Add-Member -MemberType NoteProperty -Name "is_auto_deleteable" -Value $true
-        $o | Add-Member -MemberType NoteProperty -Name "is_exposable" -Value $true
-
+        if ($deletable) {
+            $o | Add-Member -MemberType NoteProperty -Name "is_auto_deleteable" -Value $true
+        }
+        if ($exposable) {
+            $o | Add-Member -MemberType NoteProperty -Name "is_exposable" -Value $true
+        }
 
         $body = $o
 

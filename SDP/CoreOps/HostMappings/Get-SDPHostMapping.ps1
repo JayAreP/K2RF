@@ -4,8 +4,6 @@ function Get-SDPHostMapping {
         [Alias('pipeName')]
         [string] $hostName,
         [parameter()]
-        [string] $hostGroupName,
-        [parameter()]
         [int] $id,
         [parameter()]
         [int] $lun,
@@ -14,6 +12,8 @@ function Get-SDPHostMapping {
         [bool] $unique_target,
         [parameter()]
         [string] $volumeName,
+        [parameter()]
+        [switch] $asSnapshot,
         [parameter()]
         [string] $k2context = 'k2rfconnection'
     )
@@ -46,12 +46,6 @@ function Get-SDPHostMapping {
         #>
 
         # special ops
-        if ($hostName) {
-            $hostObj = Get-SDPHost -name $hostName
-            $hostPath = ConvertTo-SDPObjectPrefix -ObjectPath "hosts" -ObjectID $hostObj.id -nestedObject
-            $PSBoundParameters.host = $hostPath 
-            $PSBoundParameters.remove('hostName') | Out-Null
-        }
 
         if ($volumeName) {
             $volumeObj = Get-SDPVolume -name $volumeName

@@ -23,8 +23,13 @@
 
 
 ## Classes
+
 - Start with building classees for:
     - Hosts
     - HostGroups
     - Volumes
     - VolumeGroups
+
+## Errors
+
+- Sanitize every Get-SDP*** call made within any function and try/catch/write-error 

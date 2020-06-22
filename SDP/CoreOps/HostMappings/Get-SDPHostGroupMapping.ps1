@@ -1,4 +1,4 @@
-function Get-SDPHostMapping {
+function Get-SDPHostGroupMapping {
     param(
         [parameter(ValueFromPipelineByPropertyName)]
         [Alias('pipeName')]
@@ -10,7 +10,7 @@ function Get-SDPHostMapping {
         [parameter()]
         [Alias("UniqueTarget")]
         [bool] $unique_target,
-        [parameter(Mandatory)]
+        [parameter()]
         [string] $volumeName,
         [parameter()]
         [switch] $asSnapshot,

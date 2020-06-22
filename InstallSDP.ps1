@@ -44,7 +44,7 @@ $fullpath = $installDirectory + '/sdp/'
 
 $moduleInfo = Test-ModuleManifest -Path ./SDP/sdp.psd1
 
-$fullfolder = $fullpath + $moduleInfo.Version.Major + '.' + $moduleInfo.Version.Minor
+$fullfolder = $fullpath + $moduleInfo.Version.Major + '.' + $moduleInfo.Version.Minor + '.' + $moduleInfo.Version.Build
 
 if (Get-Item $fullfolder -ErrorAction SilentlyContinue) {
     Remove-Item -Path $fullfolder -Recurse

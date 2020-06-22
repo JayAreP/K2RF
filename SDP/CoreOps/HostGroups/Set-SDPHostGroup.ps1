@@ -22,7 +22,7 @@ function Set-SDPHostGroup {
         Set-SDPHostGroup -id 4 -description "TestDev SQL hosts"
 
         .EXAMPLE 
-        Get-SDPHostGroup | ? {$_.name -like "TestDev*"} | Set-SDPHostGroup -description "TestDev Host Groups"
+        Get-SDPHostGroup | where-object {$_.name -like "TestDev*"} | Set-SDPHostGroup -description "TestDev Host Groups"
 
         .DESCRIPTION    
         Use this function to set any host group settings. This function accepts piped input from Get-SDPHostGroup. 

@@ -19,10 +19,16 @@ function Get-SDPHostGroupMapping {
     )
     <#
         .SYNOPSIS
+        Use this function to gather information about existing Host Group mappings.
 
         .EXAMPLE 
+        Get-SDPHostGroupMapping -hostGroupName "HostGroup01"
+
+        .EXAMPLE 
+        Get-SDPHostGroup -name "HostGroup01" | Get-SDPHostGroupMapping
 
         .DESCRIPTION
+        Query for any host group mapping on the SDP. This function accepts piped input from Get-SDPHostGroup. 
 
         .NOTES
         Authored by J.R. Phillips (GitHub: JayAreP)

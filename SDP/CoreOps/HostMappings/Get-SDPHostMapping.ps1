@@ -19,10 +19,16 @@ function Get-SDPHostMapping {
     )
     <#
         .SYNOPSIS
+        Use this function to gather information about existing Host mappings.
 
         .EXAMPLE 
+        Get-SDPHostMapping -hostName "Host01"
+
+        .EXAMPLE 
+        Get-SDPHost -name "Host01" | Get-SDPHostMapping
 
         .DESCRIPTION
+        Query for any host mapping on the SDP. This function accepts piped input from Get-SDPHost. 
 
         .NOTES
         Authored by J.R. Phillips (GitHub: JayAreP)

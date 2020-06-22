@@ -54,11 +54,11 @@ function Get-SDPHostMapping {
             $PSBoundParameters.remove('volumeName') | Out-Null
         }
 
-        if ($hostGroupName) {
-            $hostGroupObj = Get-SDPHostGroup -name $hostGroupName
-            $hostGroupPath = ConvertTo-SDPObjectPrefix -ObjectPath "host_groups" -ObjectID $hostGroupObj.id -nestedObject
-            $PSBoundParameters.host = $hostGroupPath 
-            $PSBoundParameters.remove('hostGroupName') | Out-Null
+        if ($hostName) {
+            $hostObj = Get-SDPHost -name $hostName
+            $hostPath = ConvertTo-SDPObjectPrefix -ObjectPath "hosts" -ObjectID $hostObj.id -nestedObject
+            $PSBoundParameters.host = $hostPath 
+            $PSBoundParameters.remove('hostName') | Out-Null
         }
 
         # make the call

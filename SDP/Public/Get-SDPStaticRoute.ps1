@@ -10,10 +10,8 @@ function Get-SDPStaticRoute {
         [Alias("GatewayIp")]
         [string] $gateway_ip,
         [parameter()]
-        [Alias("ContainedIn")]
         [int] $id,
         [parameter()]
-        [Alias("ContainedIn")]
         [string] $knode,
         [parameter()]
         [string] $k2context = "k2rfconnection"

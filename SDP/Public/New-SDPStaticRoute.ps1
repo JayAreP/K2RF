@@ -26,13 +26,11 @@ function New-SDPStaticRoute {
         # Make the call 
 
         $body = $o
-        <#
         try {
             Invoke-SDPRestCall -endpoint $endpoint -method POST -body $body -k2context $k2context -erroraction silentlycontinue
         } catch {
             return $Error[0]
         }
-        #>
         return $body
     }
 }

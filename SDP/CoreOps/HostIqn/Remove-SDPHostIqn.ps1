@@ -9,7 +9,7 @@ function Remove-SDPHostIqn {
 
     ## Special Ops
     begin {
-        $endpoint = 'host_iqnss'
+        $endpoint = 'host_iqns'
     }
 
     process {

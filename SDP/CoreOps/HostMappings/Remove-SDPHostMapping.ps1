@@ -1,5 +1,4 @@
 function Remove-SDPHostMapping {
-    [alias("Remove-SDPHostGroupMapping")]
     param(
         [parameter(ValueFromPipelineByPropertyName)]
         [Alias('pipeId')]

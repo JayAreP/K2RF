@@ -3,8 +3,13 @@
 
 ### Installation 
 For now, clone this repo and import the module manually via:
-```
+```powershell
 Import-Module ./path/SDP/sdp.psd1
+```
+
+Or install via the PowerShell Gallery
+```powershell
+Find-Module SDP -AllowPrerelease | Install-Module -confirm:0
 ```
 
 Or, run the provided InstallSDP.ps1 script. 

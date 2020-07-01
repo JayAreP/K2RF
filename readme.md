@@ -22,7 +22,6 @@ Unblock-File .\InstallSDP.ps1
 3. c:\program files\powershell\7\Modules
 4. C:\Program Files (x86)\WindowsPowerShell\Modules
 5. C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
-6. C:\Program Files (x86)\Google\Cloud SDK\google-cloud-sdk\platform\PowerShell
 ------
 Select Install location:
 ```

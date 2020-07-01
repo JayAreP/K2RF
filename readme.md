@@ -1,4 +1,4 @@
-# Silk Data Platform (formerly Kaminario) PowerShell SDK 
+# Silk Data Pod (formerly Kaminario K2) PowerShell SDK 
 ## Currently I consider this SDK experimental, and do not recommend use in production deployments without testing thoroughly.
 
 ### Installation 

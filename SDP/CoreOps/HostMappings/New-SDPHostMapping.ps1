@@ -12,10 +12,16 @@ function New-SDPHostMapping {
     )
     <#
         .SYNOPSIS
+        Map a host to an existing volume.     
 
         .EXAMPLE 
+        New-SDPHostMapping -hostName Host01 -volumeName Vol01
+
+        .EXAMPLE 
+        Get-SDPHost -name Host01 | New-SDPHostMapping -volumeName Vol01
 
         .DESCRIPTION
+        This function will map a host to any qualifying volume. Accepts piped into from Get-SDPHost
 
         .NOTES
         Authored by J.R. Phillips (GitHub: JayAreP)
@@ -34,8 +40,8 @@ function New-SDPHostMapping {
         $hostid = Get-SDPHost -name $hostName
         $hostPath = ConvertTo-SDPObjectPrefix -ObjectPath "hosts" -ObjectID $hostid.id -nestedObject
 
-        if ($hostid.host_group) {
-            $message = "Host $hostName is a member of a host group, please use New-SDPHostGroupMapping for the parent group or select an ungrouped host."
+        if ($hostid.host_) {
+            $message = "Host $hostName is a member of a host , please use New-SDPHostMapping for the parent  or select an uned host."
             Write-Error $message
         }
 
@@ -43,7 +49,7 @@ function New-SDPHostMapping {
             $volumeid = Get-SDPVolume -name $volumeName
             $volumePath = ConvertTo-SDPObjectPrefix -ObjectPath "volumes" -ObjectID $volumeid.id -nestedObject
         } elseif ($snapshotName) {
-            $volumeid = Get-SDPVolumeGroupSnapshot -name $snapshotName
+            $volumeid = Get-SDPVolumeSnapshot -name $snapshotName
             $volumePath = ConvertTo-SDPObjectPrefix -ObjectPath "snapshots" -ObjectID $volumeid.id -nestedObject
         } else {
             $message = "Please supply either a -volumeName or -snapshotName"

@@ -12,10 +12,16 @@ function New-SDPHostGroupMapping {
     )
     <#
         .SYNOPSIS
+        Map a host group to an existing volume.     
 
         .EXAMPLE 
+        New-SDPHostGroupMapping -hostGroupName HG01 -volumeName Vol01
+
+        .EXAMPLE 
+        Get-SDPHostGroup -name HG01 | New-SDPHostGroupMapping -volumeName Vol01
 
         .DESCRIPTION
+        This function will map a host group to any qualifying volume. Accepts piped into from Get-SDPHostGroup
 
         .NOTES
         Authored by J.R. Phillips (GitHub: JayAreP)

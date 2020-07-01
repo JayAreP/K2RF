@@ -1,4 +1,4 @@
-function Get-SDPHostIqn {
+function Get-SDPHostPwwn {
     param(
         [parameter(ValueFromPipelineByPropertyName)]
         [Alias('pipeName')]
@@ -7,22 +7,22 @@ function Get-SDPHostIqn {
         [parameter()]
         [int] $id,
         [parameter()]
-        [string] $iqn,
+        [string] $pwwn,
         [parameter()]
         [string] $k2context = "k2rfconnection"
     )
     <#
         .SYNOPSIS
-        Returns a list of host IQNs
+        Returns a list of host PWWNs
 
         .EXAMPLE 
-        Get-SDPHostIqn -hostName Host01
+        Get-SDPHostPwwn -hostName Host01
 
         .EXAMPLE 
-        Get-SDPHost | where-object {$_.name -like "TestDev*"} | Get-SDPHostIqn
+        Get-SDPHost | where-object {$_.name -like "TestDev*"} | Get-SDPHostPwwn
 
         .DESCRIPTION
-        Gets a list of all hosts and their IQNs. Can specify by host or IQN. Accepts piped input from Get-SDPHost
+        Gets a list of all hosts and their PWWNs. Can specify by host or PWWN. Accepts piped input from Get-SDPHost
 
         .NOTES
         Authored by J.R. Phillips (GitHub: JayAreP)
@@ -33,7 +33,7 @@ function Get-SDPHostIqn {
     #>
 
     begin {
-        $endpoint = "host_iqns"
+        $endpoint = 'host_fc_ports'
     }
 
     process {

@@ -1,4 +1,4 @@
-function Remove-SDPHostIqn {
+function Remove-SDPHostGroupMapping {
     param(
         [parameter(ValueFromPipelineByPropertyName)]
         [Alias('pipeId')]
@@ -8,16 +8,16 @@ function Remove-SDPHostIqn {
     )
     <#
         .SYNOPSIS
-        Remove an existing host iqn. 
+        Remove an existing host mapping. 
 
         .EXAMPLE 
-        Remove-SDPHostIqn -id 123
+        Remove-SDPHostGroupMapping -id 432
 
         .EXAMPLE 
-        Get-SDPHostIqn -hostName LinuxHost03 | Remove-SDPHostIqn 
+        Get-SDPHostGroupMapping -hostGroupName HG01 | Remove-SDPHostGroupMapping 
         
         .DESCRIPTION
-        Use this function to remove an existing host iqn using these examples. Accepts piped imput from Get-SDPHostIqn
+        Use this function to remove an existing host group mapping using these examples. Accepts piped imput from Get-SDPHostGroupMapping
 
         .NOTES
         Authored by J.R. Phillips (GitHub: JayAreP)
@@ -28,7 +28,7 @@ function Remove-SDPHostIqn {
     #>
 
     begin {
-        $endpoint = 'host_iqns'
+        $endpoint = 'mappings'
     }
 
     process {

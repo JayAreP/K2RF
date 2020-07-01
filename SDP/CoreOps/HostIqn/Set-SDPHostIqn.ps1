@@ -8,7 +8,26 @@ function Set-SDPHostIqn {
         [parameter()]
         [string] $k2context = 'k2rfconnection'
     )
+    <#
+        .SYNOPSIS
+        Assigns an IQN to a host. 
 
+        .EXAMPLE 
+        Set-SDPHostIqn -hostName Host01 -iqn iqn.1998-01.com.vmware.iscsi:0123456789ABCDEF
+
+        .EXAMPLE 
+        Get-SDPHost -name Host01 | Set-SDPHostIqn -iqn iqn.1998-01.com.vmware.iscsi:0123456789ABCDEF
+
+        .DESCRIPTION
+        Set's the IQN for any host. Accepts piped input from Get-SDPHost. 
+
+        .NOTES
+        Authored by J.R. Phillips (GitHub: JayAreP)
+
+        .LINK
+        https://www.github.com/JayAreP/K2RF/
+
+    #>
     begin {
         $endpoint = 'host_iqns'
     }

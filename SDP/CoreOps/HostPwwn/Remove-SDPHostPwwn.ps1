@@ -1,4 +1,4 @@
-function Remove-SDPHostIqn {
+function Remove-SDPHostPwwn {
     param(
         [parameter(ValueFromPipelineByPropertyName)]
         [Alias('pipeId')]
@@ -8,16 +8,16 @@ function Remove-SDPHostIqn {
     )
     <#
         .SYNOPSIS
-        Remove an existing host iqn. 
+        Remove an existing host Pwwn. 
 
         .EXAMPLE 
-        Remove-SDPHostIqn -id 123
+        Remove-SDPHostPwwn -id 123
 
         .EXAMPLE 
-        Get-SDPHostIqn -hostName LinuxHost03 | Remove-SDPHostIqn 
+        Get-SDPHostPwwn -hostName LinuxHost03 | Remove-SDPHostPwwn 
         
         .DESCRIPTION
-        Use this function to remove an existing host iqn using these examples. Accepts piped imput from Get-SDPHostIqn
+        Use this function to remove an existing host Pwwn using these examples. Accepts piped imput from Get-SDPHostPwwn
 
         .NOTES
         Authored by J.R. Phillips (GitHub: JayAreP)
@@ -28,7 +28,7 @@ function Remove-SDPHostIqn {
     #>
 
     begin {
-        $endpoint = 'host_iqns'
+        $endpoint = 'host_fc_ports'
     }
 
     process {

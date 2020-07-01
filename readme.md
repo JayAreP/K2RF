@@ -13,6 +13,19 @@ Find-Module SDP -AllowPrerelease | Install-Module -confirm:0
 ```
 
 Or, run the provided InstallSDP.ps1 script. 
+```powershell
+Unblock-File .\InstallSDP.ps1
+.\InstallSDP.ps1
+------
+1. C:\Users\user\Documents\PowerShell\Modules
+2. C:\Program Files\PowerShell\Modules
+3. c:\program files\powershell\7\Modules
+4. C:\Program Files (x86)\WindowsPowerShell\Modules
+5. C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+6. C:\Program Files (x86)\Google\Cloud SDK\google-cloud-sdk\platform\PowerShell
+------
+Select Install location:
+```
 
 ### Example usage: 
 

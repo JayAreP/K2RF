@@ -16,6 +16,9 @@ Or, run the provided InstallSDP.ps1 script.
 ```powershell
 Unblock-File .\InstallSDP.ps1
 .\InstallSDP.ps1
+```
+Which gives you a simple install menu. 
+```powershell
 ------
 1. C:\Users\user\Documents\PowerShell\Modules
 2. C:\Program Files\PowerShell\Modules

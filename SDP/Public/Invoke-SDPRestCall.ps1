@@ -14,7 +14,9 @@ function Invoke-SDPRestCall {
         [parameter()]
         [int] $limit = 9999,
         [parameter()]
-        [switch] $strictURI
+        [switch] $strictURI,
+        [parameter()]
+        [switch] $fullResponse
     )
 
     <#
@@ -139,8 +141,11 @@ function Invoke-SDPRestCall {
         If this looks inefficient, it's because it is. Thankfully there's not a lot of metadata presented through these queries, 
         so the operational impact is minimal. 
     #>
-
-    $results = $results.hits
+    if ($fullResponse) {
+        return $results
+    } else {
+        $results = $results.hits
+    }
     
     if ($parameterList.Count -gt 0) {
         $rcount = $results.Count

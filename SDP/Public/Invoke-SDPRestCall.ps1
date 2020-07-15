@@ -82,7 +82,7 @@ function Invoke-SDPRestCall {
     $endpointURI = $endpointURI.Substring(0,$endpointURI.Length-1)
     $endpointURI = New-URLEncode -URL $endpointURI -k2context $k2context
 
-    Write-Verbose "Requesting $method from $endpointURI"
+    Write-Verbose "Invoke-SDPRestCall --> Requesting $method from $endpointURI <--- Final URI"
     if ($body) {
         $bodyjson = $body | ConvertTo-Json -Depth 10
         Write-Verbose "-- REST Using following JSON body --"

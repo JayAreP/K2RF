@@ -6,22 +6,18 @@ param(
     [parameter(mandatory)]
     [int] $sizeInGB,
     [parameter(mandatory)]
-    [int] $numberOfVolumes,
-    [parameter()]
-    [string] $iqn,
-    [parameter()]
-    [string] $pwwn
+    [int] $numberOfVolumes
 )
 
 <#
     .EXAMPLE
-    New-WindowsHostPrep.ps1 -name WindowsHost01 -sizeInGB 30 -numberOfVolumes 3 -pwwn 00:11:22:33:44:55:66:77
+    New-LinuxHostPrep.ps1 -name LinuxHost01 -sizeInGB 30 -numberOfVolumes 3 -pwwn 00:11:22:33:44:55:66:77
 
     This creates:
-        - A Host Object named WindowsHost01 and assigns it the PWWN 00:11:22:33:44:55:66:77
-        - A Volume Group named WindowsHost01-vg
-        - 3 30GB volumes named WindowsHost01-vol-1 2 and 3 and adds them to the WindowsHost01-vg volume group
-        - A mapping of each volume to the WindowsHost01 host object
+        - A Host Object named LinuxHost01 and assigns it the PWWN 00:11:22:33:44:55:66:77
+        - A Volume Group named LinuxHost01-vg
+        - 3 30GB volumes named LinuxHost01-vol-1 2 and 3 and adds them to the LinuxHost01-vg volume group
+        - A mapping of each volume to the LinuxHost01 host object
 #>
 
 # Create the host
@@ -41,8 +37,10 @@ while ($number -le $numberOfVolumes) {
 }
 
 # Add host connection information
-if ($iqn) {Set-SDPHostIqn -iqn $iqn -hostName $name}
-if ($pwwn) {Set-SDPHostPwwn -pwwn $pwwn -hostName $name}
+
+$hostiqn = 'iqn.1991-05.com.microsoft:' + $name
+Set-SDPHostIqn -iqn $hostiqn -hostName $name
+
 
 Write-Host -ForegroundColor yellow '--- To remove all objects ---'
 Write-Host -ForegroundColor yellow "Get-SDPHost -name $name | Get-SDPHostMapping | Remove-SDPHostMapping"

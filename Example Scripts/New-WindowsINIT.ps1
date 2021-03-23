@@ -4,8 +4,6 @@ param(
     [parameter()]
     [string] $Data2Interface,
     [parameter()]
-    [switch] $initialize,
-    [parameter()]
     [switch] $startiSCSI,
     [parameter()]
     [switch] $addHW,
@@ -19,10 +17,9 @@ param(
             -addHost -- This will add the host object to the SDP with the local iqn.
             -addHW -- For the first time you run the script, this will add the Silk hardware vendor values to the HW list. 
             -startiSCSI -- This will start the iSCSI service and set it for automatic start. 
-            -initialize -- This will initialilze the newly provisioned LUNs and put a drive letter on them for immediate use. 
 
     .EXAMPLE
-        New-WIndowsINIT.ps1 -Data1Interface Data1 -Data2Interface Data2 -addHost -startiSCSI -addHW -initialize
+        New-WIndowsINIT.ps1 -Data1Interface Data1 -Data2Interface Data2 -addHost -startiSCSI -addHW 
 
 #>
 
@@ -47,7 +44,13 @@ if ($Data2Interface) {
 }
 
 # Set the global MPIO policy to round robin
-Set-MSDSMGlobalDefaultLoadBalancePolicy -Policy RR
+Set-MSDSMGlobalDefaultLoadBalancePolicy -Policy LQD
+Enable-MSDSMAutomaticClaim -BusType iSCSI -Confirm:$false
+Set-MPIOSetting -NewPathVerificationState Enabled
+Set-MPIOSetting -NewPathVerificationPeriod 1
+Set-MPIOSetting -NewDiskTimeout 60
+Set-MPIOSetting -NewRetryCount 3
+Set-MPIOSetting -NewPDORemovePeriod 80
 
 $dataPorts = Get-SDPSystemNetPorts | where-object {$_.name -match "data"}
 
@@ -67,8 +70,3 @@ foreach ($i in $dataPorts) {
     }
 }
 
-# Initiate those disks and for a ring on it. 
-
-if ($initialize) {
-    Get-Disk | Where-Object {$_.FriendlyName -like "KMNRIO*" -and $_.size -gt "262144"} | Initialize-Disk -PartitionStyle MBR -PassThru | New-Partition -AssignDriveLetter -UseMaximumSize | Format-Volume -FileSystem NTFS -NewFileSystemLabel "SDPVol" -Confirm:$false
-}

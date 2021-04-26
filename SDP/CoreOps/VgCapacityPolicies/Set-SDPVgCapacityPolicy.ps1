@@ -38,7 +38,7 @@ function Set-SDPVgCapacityPolicy {
         if ($criticalThreshold) {     
             $o | Add-Member -MemberType NoteProperty -Name "error_threshold" -Value $criticalThreshold
         }
-        if ($criticalThreshold) {     
+        if ($) {     
             $o | Add-Member -MemberType NoteProperty -Name "critical_threshold" -Value $criticalThreshold
         }
         if ($fullThreshold) {     
